@@ -1,15 +1,8 @@
-using TuChambaPe.Publishing.Domain.Model.Commands;
-using TuChambaPe.Publishing.Domain.Model.Entities;
+using TuChambaPe.Offers.Domain.Model.Commands;
+using TuChambaPe.Offers.Domain.Model.Entities;
+using TuChambaPe.Offers.Domain.Model.ValueObjects;
 
-namespace TuChambaPe.Publishing.Domain.Model.Aggregate;
-
-public enum OfferStatus
-{
-    NUEVA,
-    EN_PROCESO,
-    COMPLETADA,
-    CANCELADA
-}
+namespace TuChambaPe.Offers.Domain.Model.Aggregate;
 
 public partial class Offer
 {
@@ -26,6 +19,7 @@ public partial class Offer
     }
 
     public Offer(CreateOfferCommand command) : this(
+        command.Id,
         command.Title,
         command.Description,
         command.CategoryId,

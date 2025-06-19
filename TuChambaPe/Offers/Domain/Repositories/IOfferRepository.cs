@@ -6,9 +6,9 @@ namespace TuChambaPe.Offer.Domain.Repositories;
 
 public interface IOfferRepository : IBaseRepository<Offer>
 {
-    Task<IEnumerable<Offer?>> find();
-    Task<Offer?> findById(id string);
-    Task<Offer?> save(Offer offer);
-    Task<Offer?> update(Offer offer);
-    Task<void> delete(id string);
+    Task<IEnumerable<Offer?>> Find();
+    Task<Offer?> FindById(id string);
+    Task<Offer?> Save(Offer offer);
+    Task<Offer?> Update(Offer offer);
+    Task<void> Delete(id string);
 }
