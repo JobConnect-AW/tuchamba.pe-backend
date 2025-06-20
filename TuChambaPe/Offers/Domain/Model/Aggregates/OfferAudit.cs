@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using EntityFrameworkCore.CreatedUpdatedDate.Contracts;
 
-namespace TuChambaPe.Publishing.Domain.Model.Aggregate;
+namespace TuChambaPe.Offers.Domain.Model.Aggregates;
 
 public partial class Offer : IEntityWithCreatedUpdatedDate
 {

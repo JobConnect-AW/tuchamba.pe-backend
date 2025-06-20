@@ -1,3 +1,4 @@
+using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Offers.Domain.Model.Aggregates;
 using TuChambaPe.Offers.Domain.Model.ValueObjects;
 using TuChambaPe.Offers.Domain.Repositories;
@@ -11,6 +12,6 @@ public class OfferRepository(AppDbContext context)
 {
     public async Task<Offer?> FindById(string id)
     {
-        return Context.Set<Offer>().FirstOrDefault(p => p.Id == id);
+        return await Context.Set<Offer>().FirstOrDefault(p => p.Id == id);
     }
 }

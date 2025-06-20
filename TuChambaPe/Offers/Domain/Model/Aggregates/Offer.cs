@@ -1,9 +1,7 @@
 using TuChambaPe.Offers.Domain.Model.Commands;
-using TuChambaPe.Offers.Domain.Model.Entities;
 using TuChambaPe.Offers.Domain.Model.ValueObjects;
 
-namespace TuChambaPe.Offers.Domain.Model.Aggregate;
-
+namespace TuChambaPe.Offers.Domain.Model.Aggregates;
 public partial class Offer
 {
     public Offer(string id, string title, string description, int categoryId, float amount, string duration, string paymentMethod, OfferStatus status) : this()
