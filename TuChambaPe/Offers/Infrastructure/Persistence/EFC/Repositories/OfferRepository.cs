@@ -1,7 +1,7 @@
-using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
-using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Offers.Domain.Model.Aggregates;
 using TuChambaPe.Offers.Domain.Repositories;
+using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
+using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories;
 
 
 namespace TuChambaPe.Offers.Infrastructure.Persistence.EFC.Repositories;

@@ -1,5 +1,5 @@
-using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
 using Microsoft.EntityFrameworkCore;
+using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
