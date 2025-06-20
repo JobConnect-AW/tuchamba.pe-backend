@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions
+namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions
 {
     public static class ModelBuilderExtensions
     {

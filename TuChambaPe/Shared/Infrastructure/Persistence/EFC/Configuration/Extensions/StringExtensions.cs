@@ -1,6 +1,6 @@
 ﻿using Humanizer;
 
-namespace LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions
+namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions
 {
     public static class StringExtensions
     {

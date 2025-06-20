@@ -1,4 +1,4 @@
-﻿namespace tuchambape.Shared.Domain.Repositories
+﻿namespace TuChambaPe.Shared.Domain.Repositories
 {
     public interface IUnitOfWork
     {

@@ -1,14 +1,14 @@
 ﻿using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
-using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
+using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using Microsoft.EntityFrameworkCore;
 using static System.Runtime.InteropServices.JavaScript.JSType;
-using LearningCenterPlatform.Publishing.Domain.Model.Entities;
-using LearningCenterPlatform.Publishing.Domain.Model.Aggregate;
-using LearningCenterPlatform.Profiles.Domain.Model.Aggregates;
-using LearningCenterPlatform.Profiles.Domain.Model.ValueObjects;
-using LearningCenterPlatform.IAM.Domain.Model.Aggregates;
+using TuChambaPe.Publishing.Domain.Model.Entities;
+using TuChambaPe.Publishing.Domain.Model.Aggregate;
+using TuChambaPe.Profiles.Domain.Model.Aggregates;
+using TuChambaPe.Profiles.Domain.Model.ValueObjects;
+using TuChambaPe.IAM.Domain.Model.Aggregates;
 
-namespace LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration
+namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration
 {
     public class AppDbContext(DbContextOptions options) : DbContext(options)
     {

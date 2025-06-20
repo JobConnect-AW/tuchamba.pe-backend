@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace LearningCenterPlatform.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions
+namespace TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions
 {
 
     /// <summary>

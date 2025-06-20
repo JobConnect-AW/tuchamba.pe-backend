@@ -1,7 +1,7 @@
-﻿using tuchambape.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions;
+﻿using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration.Extensions;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
-namespace tuchambape.Shared.Infrastructure.Interfaces.ASP.Configuration
+namespace TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration
 {
     public class KebabCaseRouteNamingConvention: IControllerModelConvention
     {
