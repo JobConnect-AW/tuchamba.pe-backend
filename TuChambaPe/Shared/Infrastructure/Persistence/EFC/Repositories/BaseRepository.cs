@@ -1,9 +1,9 @@
-﻿using LearningCenterPlatform.Shared.Domain.Repositories;
+﻿using TuChambaPe.Shared.Domain.Repositories;
 using System;
-using LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Configuration;
+using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearningCenterPlatform.Shared.Infrastructure.Persistence.EFC.Repositories
+namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
     {

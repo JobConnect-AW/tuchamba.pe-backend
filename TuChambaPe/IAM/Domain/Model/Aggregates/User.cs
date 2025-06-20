@@ -2,32 +2,33 @@
 
 namespace TuChambaPe.IAM.Domain.Model.Aggregates
 {
-    public class User(string firstname, string passwordHash)
+    public class User(string uid, string email, string passwordHash)
     {
         public User() : this(string.Empty, string.Empty)
         {
         }
 
         public int Id { get; }
-        public string Uid { get;  }
-        public string FirstName { get; private set; } = firstname;
-
+        public uint Uid { get } = uid;
+        public string Email { get; private set; } = email;
 
 
         [JsonIgnore] public string PasswordHash { get; private set; } = passwordHash;
 
+
         /**
          * <summary>
-         *     Update the username
+         *     Update email
          * </summary>
-         * <param name="fullname">The new username</param>
+         * <param name="email">The new email</param>
          * <returns>The updated user</returns>
-         */
-        public User UpdateUsername(string fullname)
+        */
+        public User UpdateEmail(string email)
         {
-            FullName = fullname;
+            Email = email;
             return this;
         }
+
 
         /**
          * <summary>
