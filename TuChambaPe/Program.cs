@@ -20,7 +20,6 @@ using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -153,7 +152,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Enviro
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la página raíz
+        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la pï¿½gina raï¿½z
         c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
 
     });

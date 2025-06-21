@@ -4,16 +4,15 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensi
 {
     public static class StringExtensions
     {
-
-        /// <summary>
-        ///     Convert the string to snake case
-        /// </summary>
-        /// <param name="text">
-        ///     The text to convert to snake case
-        /// </param>
-        /// <returns>
-        ///     The snake cased text
-        /// </returns>
+        /// <summary>  
+        ///     Convert the string to snake case  
+        /// </summary>  
+        /// <param name="text">  
+        ///     The text to convert to snake case  
+        /// </param>  
+        /// <returns>  
+        ///     The snake cased text  
+        /// </returns>  
         public static string ToSnakeCase(this string text)
         {
             return new string(Convert(text.GetEnumerator()).ToArray());
@@ -37,15 +36,15 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensi
             }
         }
 
-        /// <summary>
-        ///     Convert the string to plural
-        /// </summary>
-        /// <param name="text">
-        ///     The text to convert to plural
-        /// </param>
-        /// <returns>
-        ///     The pluralized text
-        /// </returns>
+        /// <summary>  
+        ///     Convert the string to plural  
+        /// </summary>  
+        /// <param name="text">  
+        ///     The text to convert to plural  
+        /// </param>  
+        /// <returns>  
+        ///     The pluralized text  
+        /// </returns>  
         public static string ToPlural(this string text)
         {
             return text.Pluralize(false);
