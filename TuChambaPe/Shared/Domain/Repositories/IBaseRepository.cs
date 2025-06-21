@@ -13,15 +13,15 @@
         Task AddAsync(TEntity entity);
 
         /// <summary>
-        ///     Find an entity by its id
+        ///     Find an entity by its uid
         /// </summary>
-        /// <param name="id">
-        ///     The id of the entity to find
+        /// <param name="uid">
+        ///     The uid of the entity to find
         /// </param>
         /// <returns>
         ///     The entity if found, otherwise null
         /// </returns>
-        Task<TEntity?> FindByIdAsync(int id);
+        Task<TEntity?> FindByUidAsync(Guid uid);
 
         void Update(TEntity entity);
 

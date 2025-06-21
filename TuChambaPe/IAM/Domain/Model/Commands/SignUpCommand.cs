@@ -8,4 +8,4 @@ namespace TuChambaPe.IAM.Domain.Model.Commands;
  *     This command object includes the email and password to sign up
  * </remarks>
  */
-public record SignUpCommand(string Email, string Password);
+public record SignUpCommand(Guid Uid, string Email, string Password);

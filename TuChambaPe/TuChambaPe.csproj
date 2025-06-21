@@ -1,79 +1,37 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Properties\launchSettings.json" />
+    <None Remove="IAM\Interfaces\REST\Resources\AuthenticatedUserResource.cs~RF325204.TMP" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Cortex.Mediator" Version="1.6.1" />
+    <PackageReference Include="Humanizer" Version="2.14.1" />
+    <PackageReference Include="KodeAid.AspNetCore.Swagger" Version="2.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.17" />
+    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.12.1" />
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.12.1" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.3" />
+    <PackageReference Include="Swashbuckle" Version="5.6.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IAM\Application\ACL\" />
-    <Folder Include="IAM\Application\Internal\OutboundServices\" />
-    <Folder Include="IAM\Application\Internal\QueryServices\" />
-    <Folder Include="IAM\Domain\Model\Commands\" />
-    <Folder Include="IAM\Domain\Model\Queries\" />
-    <Folder Include="IAM\Domain\Repositories\" />
-    <Folder Include="IAM\Domain\Services\" />
-    <Folder Include="IAM\Infrastructure\Persistence\EFC\Repositories\" />
-    <Folder Include="IAM\Interfaces\ACL\" />
-    <Folder Include="IAM\Interfaces\REST\Resources\" />
-    <Folder Include="IAM\Interfaces\REST\Transform\" />
-    <Folder Include="Offers\Application\ACL\" />
-    <Folder Include="Offers\Application\Internal\CommandServices\" />
-    <Folder Include="Offers\Application\Internal\QueryServices\" />
-    <Folder Include="Offers\Domain\Model\Aggregates\" />
-    <Folder Include="Offers\Domain\Model\Commands\" />
-    <Folder Include="Offers\Domain\Model\Queries\" />
     <Folder Include="Offers\Domain\Repositories\" />
     <Folder Include="Offers\Domain\Services\" />
-    <Folder Include="Offers\Infrastructure\Persistence\EFC\Repositories\" />
-    <Folder Include="Offers\Interfaces\ACL\" />
-    <Folder Include="Offers\Interfaces\REST\Transform\" />
-    <Folder Include="Offers\Interfaces\REST\Resources\" />
-    <Folder Include="Payments\Application\ACL\" />
-    <Folder Include="Payments\Application\Internal\CommandServices\" />
-    <Folder Include="Payments\Application\Internal\QueryServices\" />
-    <Folder Include="Payments\Domain\Model\Aggregates\" />
-    <Folder Include="Payments\Domain\Model\Commands\" />
-    <Folder Include="Payments\Domain\Model\Queries\" />
     <Folder Include="Payments\Domain\Repositories\" />
     <Folder Include="Payments\Domain\Services\" />
-    <Folder Include="Payments\Infrastructure\Persistence\EFC\Repositories\" />
-    <Folder Include="Payments\Interfaces\ACL\" />
-    <Folder Include="Payments\Interfaces\REST\Resources\" />
-    <Folder Include="Payments\Interfaces\REST\Transform\" />
-    <Folder Include="Proposals\Application\ACL\" />
-    <Folder Include="Proposals\Application\Internal\CommandServices\" />
-    <Folder Include="Proposals\Application\Internal\QueryServices\" />
-    <Folder Include="Proposals\Domain\Model\Aggregates\" />
-    <Folder Include="Proposals\Domain\Model\Commands\" />
-    <Folder Include="Proposals\Domain\Model\Queries\" />
     <Folder Include="Proposals\Domain\Repositories\" />
     <Folder Include="Proposals\Domain\Services\" />
-    <Folder Include="Proposals\Infrastructure\Persistence\EFC\Repositories\" />
-    <Folder Include="Proposals\Interfaces\ACL\" />
-    <Folder Include="Proposals\Interfaces\REST\Resources\" />
-    <Folder Include="Proposals\Interfaces\REST\Transform\" />
-    <Folder Include="Users\Application\ACL\" />
-    <Folder Include="Users\Application\Internal\CommandServices\" />
-    <Folder Include="Users\Application\Internal\QueryServices\" />
-    <Folder Include="Users\Domain\Model\Aggregates\" />
-    <Folder Include="Users\Domain\Model\Commands\" />
-    <Folder Include="Users\Domain\Model\Queries\" />
-    <Folder Include="Users\Domain\Repositories\" />
-    <Folder Include="Users\Domain\Services\" />
-    <Folder Include="Users\Infrastructure\Persistence\EFC\Repositories\" />
-    <Folder Include="Users\Interfaces\ACL\" />
-    <Folder Include="Users\Interfaces\REST\Resources\" />
-    <Folder Include="Users\Interfaces\REST\Transform\" />
+    <Folder Include="Users\" />
   </ItemGroup>
 
 </Project>
