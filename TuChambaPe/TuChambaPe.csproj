@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
@@ -31,7 +31,8 @@
     <Folder Include="Payments\Domain\Services\" />
     <Folder Include="Proposals\Domain\Repositories\" />
     <Folder Include="Proposals\Domain\Services\" />
-    <Folder Include="Users\" />
+    <Folder Include="Users\Domain\Repositories\" />
+    <Folder Include="Users\Domain\Services\" />
   </ItemGroup>
 
 </Project>
