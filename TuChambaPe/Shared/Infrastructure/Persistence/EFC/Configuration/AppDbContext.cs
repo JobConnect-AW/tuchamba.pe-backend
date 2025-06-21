@@ -1,6 +1,7 @@
 ﻿using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using Microsoft.EntityFrameworkCore;
 using TuChambaPe.IAM.Domain.Model.Aggregates;
+using TuChambaPe.Offers.Domain.Model.Aggregates;
 
 namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration
 {
@@ -43,6 +44,20 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration
             builder.Entity<User>().Property(u => u.Uid).IsRequired();
             builder.Entity<User>().Property(u => u.Email).IsRequired();
             builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
+
+            // Offers Context
+
+            builder.Entity<Offer>().HasKey(o => o.Id);
+            builder.Entity<Offer>().Property(o => o.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Offer>().Property(o => o.Uid).IsRequired();
+            builder.Entity<Offer>().Property(o => o.Title).IsRequired();
+            builder.Entity<Offer>().Property(o => o.Description).IsRequired();
+            builder.Entity<Offer>().Property(o => o.CategoryId).IsRequired();
+            builder.Entity<Offer>().Property(o => o.Amount).IsRequired();
+            builder.Entity<Offer>().Property(o => o.Duration).IsRequired();
+            builder.Entity<Offer>().Property(o => o.PaymentMethod).IsRequired();
+            builder.Entity<Offer>().Property(o => o.Status).IsRequired();
+
             builder.UseSnakeCaseNamingConvention();
         }
     }

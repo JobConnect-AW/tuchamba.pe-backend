@@ -1,31 +1,29 @@
 namespace TuChambaPe.Offers.Domain.Model.ValueObjects
 {
-    public enum OfferStatusEnum
+    public static class OfferStatus
     {
-        NUEVA,
-        EN_PROCESO,
-        COMPLETADA,
-        CANCELADA
-    }
+        public const string NUEVA = "NUEVA";
+        public const string EN_PROCESO = "EN_PROCESO";
+        public const string COMPLETADA = "COMPLETADA";
+        public const string CANCELADA = "CANCELADA";
 
-    public class OfferStatus
-    {
-        public OfferStatusEnum Status { get; }
+        public static readonly string[] ValidStatuses = { NUEVA, EN_PROCESO, COMPLETADA, CANCELADA };
 
-        public OfferStatus(OfferStatusEnum status)
+        public static bool IsValid(string status)
         {
-            Status = status;
+            return ValidStatuses.Contains(status?.ToUpper());
         }
 
-        public OfferStatus(string status)
+        public static string Validate(string status)
         {
-            if (!Enum.TryParse(status, true, out OfferStatusEnum parsedStatus))
-            {
-                throw new ArgumentException($"Estado de oferta inv�lido: {status}");
-            }
-            Status = parsedStatus;
-        }
+            if (string.IsNullOrWhiteSpace(status))
+                throw new ArgumentException("El estado de la oferta no puede estar vacío");
 
-        public override string ToString() => Status.ToString();
+            var upperStatus = status.ToUpper();
+            if (!IsValid(upperStatus))
+                throw new ArgumentException($"Estado de oferta inválido: {status}. Estados válidos: {string.Join(", ", ValidStatuses)}");
+
+            return upperStatus;
+        }
     }
 }
