@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 using Cortex.Mediator.Behaviors;
 using Cortex.Mediator.Commands;
 using Cortex.Mediator.DependencyInjection;
@@ -20,6 +22,11 @@ using TuChambaPe.Offers.Application.Internal.QueryServices;
 using TuChambaPe.Offers.Domain.Repositories;
 using TuChambaPe.Offers.Domain.Services;
 using TuChambaPe.Offers.Infrastructure.Persistence.EFC.Repositories;
+using TuChambaPe.Proposals.Application.Internal.CommandServices;
+using TuChambaPe.Proposals.Application.Internal.QueryServices;
+using TuChambaPe.Proposals.Domain.Repositories;
+using TuChambaPe.Proposals.Domain.Services;
+using TuChambaPe.Proposals.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Shared.Domain.Repositories;
 using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -127,6 +134,10 @@ builder.Services.AddScoped<IOfferRepository, OfferRepository>();
 builder.Services.AddScoped<IOfferCommandService, OfferCommandService>();
 builder.Services.AddScoped<IOfferQueryService, OfferQueryService>();
 
+builder.Services.AddScoped<IProposalRepository, ProposalRepository>();
+builder.Services.AddScoped<IProposalCommandService, ProposalCommandService>();
+builder.Services.AddScoped<IProposalQueryService, ProposalQueryService>();
+
 // Add Mediator Injection Configuration
 builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCommandBehavior<>));
 builder.Services.AddCortexMediator(
@@ -150,7 +161,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     //context.Database.EnsureCreated();
-    await context.Database.MigrateAsync();
+    context.Database.Migrate();
 }
 
 
@@ -162,7 +173,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Enviro
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la p�gina ra�z
+        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la página raíz
         c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
 
     });
