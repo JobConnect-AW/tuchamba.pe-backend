@@ -2,6 +2,7 @@
 using System;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories
 {
@@ -26,7 +27,12 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories
         // inheritedDoc
         public async Task<TEntity?> FindByUidAsync(Guid uid)
         {
-            return await Context.Set<TEntity>().FindAsync(uid);
+            var parameter = Expression.Parameter(typeof(TEntity), "e");
+            var property = Expression.Property(parameter, "Uid");
+            var equal = Expression.Equal(property, Expression.Constant(uid));
+            var lambda = Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
+            
+            return await Context.Set<TEntity>().FirstOrDefaultAsync(lambda);
         }
 
         // inheritedDoc
