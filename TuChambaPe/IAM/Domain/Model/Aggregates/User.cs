@@ -2,14 +2,14 @@
 
 namespace TuChambaPe.IAM.Domain.Model.Aggregates
 {
-    public class User(string uid, string email, string passwordHash)
+    public class User(Guid uid, string email, string passwordHash)
     {
-        public User() : this(string.Empty, string.Empty)
+        public User() : this(Guid.NewGuid(), string.Empty, string.Empty)
         {
         }
 
         public int Id { get; }
-        public uint Uid { get } = uid;
+        public Guid Uid { get; } = uid;
         public string Email { get; private set; } = email;
 
 

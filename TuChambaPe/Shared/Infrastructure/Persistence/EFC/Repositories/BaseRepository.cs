@@ -24,9 +24,9 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories
         }
 
         // inheritedDoc
-        public async Task<TEntity?> FindByIdAsync(int id)
+        public async Task<TEntity?> FindByUidAsync(Guid uid)
         {
-            return await Context.Set<TEntity>().FindAsync(id);
+            return await Context.Set<TEntity>().FindAsync(uid);
         }
 
         // inheritedDoc

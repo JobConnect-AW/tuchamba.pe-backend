@@ -8,4 +8,4 @@ namespace TuChambaPe.IAM.Domain.Model.Queries;
  *     This query object includes the user id to search
  * </remarks>
  */
-public record GetUserByIdQuery(string Uid);
+public record GetUserByUidQuery(Guid Uid);

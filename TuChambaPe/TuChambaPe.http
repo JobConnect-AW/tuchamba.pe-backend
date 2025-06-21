@@ -1,4 +1,4 @@
-@TuChambaPe_HostAddress = http://localhost:5255
+@TuChambaPe_HostAddress = http://localhost:5114
 
 GET {{TuChambaPe_HostAddress}}/weatherforecast/
 Accept: application/json
