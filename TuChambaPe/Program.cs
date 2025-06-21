@@ -15,6 +15,11 @@ using TuChambaPe.IAM.Infrastructure.Tokens.JWT.Configuration;
 using TuChambaPe.IAM.Infrastructure.Tokens.JWT.Services;
 using TuChambaPe.IAM.Interfaces.ACL;
 using TuChambaPe.IAM.Interfaces.ACL.Services;
+using TuChambaPe.Offers.Application.Internal.CommandServices;
+using TuChambaPe.Offers.Application.Internal.QueryServices;
+using TuChambaPe.Offers.Domain.Repositories;
+using TuChambaPe.Offers.Domain.Services;
+using TuChambaPe.Offers.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Shared.Domain.Repositories;
 using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -118,6 +123,10 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IHashingService, HashingService>();
 builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
 
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<IOfferCommandService, OfferCommandService>();
+builder.Services.AddScoped<IOfferQueryService, OfferQueryService>();
+
 // Add Mediator Injection Configuration
 builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCommandBehavior<>));
 builder.Services.AddCortexMediator(
@@ -140,7 +149,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    context.Database.EnsureCreated();
+    //context.Database.EnsureCreated();
+    await context.Database.MigrateAsync();
 }
 
 

@@ -51,6 +51,7 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration
             builder.Entity<Offer>().HasKey(o => o.Id);
             builder.Entity<Offer>().Property(o => o.Id).IsRequired().ValueGeneratedOnAdd();
             builder.Entity<Offer>().Property(o => o.Uid).IsRequired();
+            builder.Entity<Offer>().HasIndex(o => o.Uid).IsUnique();
             builder.Entity<Offer>().Property(o => o.Title).IsRequired();
             builder.Entity<Offer>().Property(o => o.Description).IsRequired();
             builder.Entity<Offer>().Property(o => o.CategoryId).IsRequired();
