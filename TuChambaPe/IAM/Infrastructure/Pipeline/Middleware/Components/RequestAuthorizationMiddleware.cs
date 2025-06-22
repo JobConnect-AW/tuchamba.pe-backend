@@ -21,7 +21,7 @@ public class RequestAuthorizationMiddleware(RequestDelegate next)
      */
     public async Task InvokeAsync(
         HttpContext context,
-        IUserQueryService userQueryService,
+        IAccountQueryService userQueryService,
         ITokenService tokenService)
     {
         Console.WriteLine("Entering InvokeAsync");
@@ -48,7 +48,7 @@ public class RequestAuthorizationMiddleware(RequestDelegate next)
         var userUid = await tokenService.ValidateToken(token) ?? throw new Exception("Invalid token");
 
         // get user by id
-        var getUserByIdQuery = new GetUserByUidQuery(userUid);
+        var getUserByIdQuery = new GetAccountByUidQuery(userUid);
 
         // set user in HttpContext.Items["User"]
         var user = await userQueryService.Handle(getUserByIdQuery);
