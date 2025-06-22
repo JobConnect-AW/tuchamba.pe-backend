@@ -13,35 +13,35 @@ namespace TuChambaPe.IAM.Interfaces.REST;
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]
 [SwaggerTag("Available Authentication endpoints")]
-public class AuthenticationController(IUserCommandService userCommandService) : ControllerBase
+public class AuthenticationController(IAccountCommandService accountCommandService) : ControllerBase
 {
     /**
      * <summary>
-     *     Sign in endpoint. It allows authenticating a user
+     *     Sign in endpoint. It allows authenticating an account
      * </summary>
      * <param name="signInResource">The sign-in resource containing username and password.</param>
-     * <returns>The authenticated user resource, including a JWT token</returns>
+     * <returns>The authenticated account resource, including a JWT token</returns>
      */
     [HttpPost("sign-in")]
     [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Sign in",
-        Description = "Sign in a user",
+        Description = "Sign in an account",
         OperationId = "SignIn")]
-    [SwaggerResponse(StatusCodes.Status200OK, "The user was authenticated", typeof(AuthenticatedUserResource))]
+    [SwaggerResponse(StatusCodes.Status200OK, "The account was authenticated", typeof(AuthenticatedAccountResource))]
     public async Task<IActionResult> SignIn([FromBody] SignInResource signInResource)
     {
         var signInCommand = SignInCommandFromResourceAssembler.ToCommandFromResource(signInResource);
-        var authenticatedUser = await userCommandService.Handle(signInCommand);
+        var authenticatedAccount = await accountCommandService.Handle(signInCommand);
         var resource =
-            AuthenticatedUserResourceFromEntityAssembler.ToResourceFromEntity(authenticatedUser.user,
-                authenticatedUser.token);
+            AuthenticatedAccountResourceFromEntityAssembler.ToResourceFromEntity(authenticatedAccount.account,
+                authenticatedAccount.token);
         return Ok(resource);
     }
 
     /**
      * <summary>
-     *     Sign up endpoint. It allows creating a new user
+     *     Sign up endpoint. It allows creating a new account
      * </summary>
      * <param name="signUpResource">The sign-up resource containing username and password.</param>
      * <returns>A confirmation message on successful creation.</returns>
@@ -50,13 +50,13 @@ public class AuthenticationController(IUserCommandService userCommandService) : 
     [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Sign-up",
-        Description = "Sign up a new user",
+        Description = "Sign up a new account",
         OperationId = "SignUp")]
-    [SwaggerResponse(StatusCodes.Status200OK, "The user was created successfully")]
+    [SwaggerResponse(StatusCodes.Status200OK, "The account was created successfully")]
     public async Task<IActionResult> SignUp([FromBody] SignUpResource signUpResource)
     {
         var signUpCommand = SignUpCommandFromResourceAssembler.ToCommandFromResource(signUpResource);
-        await userCommandService.Handle(signUpCommand);
-        return Ok(new { message = "User created successfully" });
+        await accountCommandService.Handle(signUpCommand);
+        return Ok(new { message = "Account created successfully" });
     }
 }

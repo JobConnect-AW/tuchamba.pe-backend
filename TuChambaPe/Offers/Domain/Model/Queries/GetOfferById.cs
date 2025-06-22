@@ -1,3 +1,3 @@
 namespace TuChambaPe.Offers.Domain.Model.Queries;
 
-public record GetOfferById(string Id);
+public record GetOfferById(Guid Id);

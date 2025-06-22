@@ -1,3 +1,5 @@
+using Microsoft.OpenApi.Models;
+
 using Cortex.Mediator.Behaviors;
 using Cortex.Mediator.Commands;
 using Cortex.Mediator.DependencyInjection;
@@ -15,6 +17,16 @@ using TuChambaPe.IAM.Infrastructure.Tokens.JWT.Configuration;
 using TuChambaPe.IAM.Infrastructure.Tokens.JWT.Services;
 using TuChambaPe.IAM.Interfaces.ACL;
 using TuChambaPe.IAM.Interfaces.ACL.Services;
+using TuChambaPe.Offers.Application.Internal.CommandServices;
+using TuChambaPe.Offers.Application.Internal.QueryServices;
+using TuChambaPe.Offers.Domain.Repositories;
+using TuChambaPe.Offers.Domain.Services;
+using TuChambaPe.Offers.Infrastructure.Persistence.EFC.Repositories;
+using TuChambaPe.Proposals.Application.Internal.CommandServices;
+using TuChambaPe.Proposals.Application.Internal.QueryServices;
+using TuChambaPe.Proposals.Domain.Repositories;
+using TuChambaPe.Proposals.Domain.Services;
+using TuChambaPe.Proposals.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Shared.Domain.Repositories;
 using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
@@ -111,12 +123,20 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 // TokenSettings Configuration
 builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
 
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IUserCommandService, UserCommandService>();
-builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountCommandService, AccountCommandService>();
+builder.Services.AddScoped<IAccountQueryService, AccountQueryService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IHashingService, HashingService>();
 builder.Services.AddScoped<IIamContextFacade, IamContextFacade>();
+
+builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<IOfferCommandService, OfferCommandService>();
+builder.Services.AddScoped<IOfferQueryService, OfferQueryService>();
+
+builder.Services.AddScoped<IProposalRepository, ProposalRepository>();
+builder.Services.AddScoped<IProposalCommandService, ProposalCommandService>();
+builder.Services.AddScoped<IProposalQueryService, ProposalQueryService>();
 
 // Add Mediator Injection Configuration
 builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCommandBehavior<>));
@@ -140,7 +160,8 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    context.Database.EnsureCreated();
+    //context.Database.EnsureCreated();
+    context.Database.Migrate();
 }
 
 
@@ -152,7 +173,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Enviro
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
-        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la p�gina ra�z
+        c.RoutePrefix = string.Empty; // Opcional: para que Swagger sea la página raíz
         c.DocExpansion(Swashbuckle.AspNetCore.SwaggerUI.DocExpansion.None);
 
     });

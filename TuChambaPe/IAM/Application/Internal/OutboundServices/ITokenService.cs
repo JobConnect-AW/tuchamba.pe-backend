@@ -16,17 +16,17 @@ public interface ITokenService
      * <summary>
      *     Generate a JWT token
      * </summary>
-     * <param name="user">The user to generate the token for</param>
+     * <param name="account">The account to generate the token for</param>
      * <returns>The generated token</returns>
      */
-    string GenerateToken(User user);
+    string GenerateToken(Account account);
 
     /**
      * <summary>
      *     Validate a JWT token
      * </summary>
      * <param name="token">The token to validate</param>
-     * <returns>The user id if the token is valid, null otherwise</returns>
+     * <returns>The account id if the token is valid, null otherwise</returns>
      */
-    Task<int?> ValidateToken(string token);
+    Task<Guid?> ValidateToken(string token);
 }

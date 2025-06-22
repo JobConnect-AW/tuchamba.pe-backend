@@ -21,7 +21,7 @@ public class RequestAuthorizationMiddleware(RequestDelegate next)
      */
     public async Task InvokeAsync(
         HttpContext context,
-        IUserQueryService userQueryService,
+        IAccountQueryService userQueryService,
         ITokenService tokenService)
     {
         Console.WriteLine("Entering InvokeAsync");
@@ -42,22 +42,18 @@ public class RequestAuthorizationMiddleware(RequestDelegate next)
 
 
         // if token is null then throw exception
-        //if (token == null) throw new Exception("Null or invalid token");
+        if (token == null) throw new Exception("Null or invalid token");
 
         // validate token
-        var userId = await tokenService.ValidateToken(token);
-
-        // if token is invalid then throw exception
-        //if (userId == null) throw new Exception("Invalid token");
+        var userUid = await tokenService.ValidateToken(token) ?? throw new Exception("Invalid token");
 
         // get user by id
-       /// var getUserByIdQuery = new GetUserByIdQuery(userId.Value);
+        var getUserByIdQuery = new GetAccountByUidQuery(userUid);
 
         // set user in HttpContext.Items["User"]
-
-        //var user = await userQueryService.Handle(getUserByIdQuery);
+        var user = await userQueryService.Handle(getUserByIdQuery);
         Console.WriteLine("Successful authorization. Updating Context...");
-        context.Items["User"] = 1; // user;
+        context.Items["User"] = user; // user;
         Console.WriteLine("Continuing with Middleware Pipeline");
         // call next middleware
         if (context.Request.Method == HttpMethods.Options)

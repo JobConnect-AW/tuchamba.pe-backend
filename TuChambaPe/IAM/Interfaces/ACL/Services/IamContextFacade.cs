@@ -4,28 +4,28 @@ using TuChambaPe.IAM.Domain.Services;
 
 namespace TuChambaPe.IAM.Interfaces.ACL.Services;
 
-public class IamContextFacade(IUserCommandService userCommandService, IUserQueryService userQueryService) : IIamContextFacade
+public class IamContextFacade(IAccountCommandService accountCommandService, IAccountQueryService accountQueryService) : IIamContextFacade
 {
-    public async Task<int> CreateUser(Guid uid, string email, string password)
+    public async Task<int> CreateAccount(Guid uid, string email, string password)
     {
         var signUpCommand = new SignUpCommand(uid, email, password);
-        await userCommandService.Handle(signUpCommand);
-        var getUserByEmailQuery = new GetUserByEmailQuery(email);
-        var result = await userQueryService.Handle(getUserByEmailQuery);
+        await accountCommandService.Handle(signUpCommand);
+        var getAccountByEmailQuery = new GetAccountByEmailQuery(email);
+        var result = await accountQueryService.Handle(getAccountByEmailQuery);
         return result?.Id ?? 0;
     }
 
-    public async Task<string> FetchUserUidByEmail(string email)
+    public async Task<string> FetchAccountUidByEmail(string email)
     {
-        var getUserByEmailQuery = new GetUserByEmailQuery(email);
-        var result = await userQueryService.Handle(getUserByEmailQuery);
+        var getAccountByEmailQuery = new GetAccountByEmailQuery(email);
+        var result = await accountQueryService.Handle(getAccountByEmailQuery);
         return result?.Uid.ToString() ?? string.Empty;
     }
 
-    public async Task<string> FetchEmailByUserUid(Guid uid)
+    public async Task<string> FetchEmailByAccountUid(Guid uid)
     {
-        var getUserByUidQuery = new GetUserByUidQuery(uid);
-        var result = await userQueryService.Handle(getUserByUidQuery);
+        var getAccountByUidQuery = new GetAccountByUidQuery(uid);
+        var result = await accountQueryService.Handle(getAccountByUidQuery);
         return result?.Email ?? string.Empty;
     }
 }

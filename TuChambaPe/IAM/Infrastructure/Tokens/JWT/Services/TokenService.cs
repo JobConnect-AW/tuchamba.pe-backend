@@ -1,4 +1,3 @@
-
 using Microsoft.IdentityModel.JsonWebTokens;
 using System.Security.Claims;
 using System.Text;
@@ -26,10 +25,10 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
      * <summary>
      *     Generate token
      * </summary>
-     * <param name="user">The user for token generation</param>
+     * <param name="account">The account for token generation</param>
      * <returns>The generated Token</returns>
      */
-    public string GenerateToken(User user)
+    public string GenerateToken(Account account)
     {
         var secret = _tokenSettings.Secret;
         var key = Encoding.ASCII.GetBytes(secret);
@@ -37,8 +36,8 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim(ClaimTypes.Sid, user.Uid.ToString()),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Sid, account.Uid.ToString()),
+                new Claim(ClaimTypes.Email, account.Email)
             }),
             Expires = DateTime.UtcNow.AddDays(7),
             SigningCredentials =
@@ -55,9 +54,9 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
      *     VerifyPassword token
      * </summary>
      * <param name="token">The token to validate</param>
-     * <returns>The user id if the token is valid, null otherwise</returns>
+     * <returns>The account id if the token is valid, null otherwise</returns>
      */
-    public async Task<int?> ValidateToken(string token)
+    public async Task<Guid?> ValidateToken(string token)
     {
         // If token is null or empty
         if (string.IsNullOrEmpty(token))
@@ -79,8 +78,8 @@ public class TokenService(IOptions<TokenSettings> tokenSettings) : ITokenService
             });
 
             var jwtToken = (JsonWebToken)tokenValidationResult.SecurityToken;
-            var userId = int.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
-            return userId;
+            var accountId = Guid.Parse(jwtToken.Claims.First(claim => claim.Type == ClaimTypes.Sid).Value);
+            return accountId;
         }
         catch (Exception e)
         {
