@@ -1,4 +1,4 @@
-﻿using TuChambaPe.IAM.Application.Internal.OutboundServices;
+using TuChambaPe.IAM.Application.Internal.OutboundServices;
 using TuChambaPe.IAM.Domain.Model.Aggregates;
 using TuChambaPe.IAM.Domain.Model.Commands;
 using TuChambaPe.IAM.Domain.Repositories;
@@ -9,36 +9,36 @@ namespace TuChambaPe.IAM.Application.Internal.CommandServices;
 
 /**
  * <summary>
- *     The user command service
+ *     The account command service
  * </summary>
  * <remarks>
- *     This class is used to handle user commands
+ *     This class is used to handle account commands
  * </remarks>
  */
-public class UserCommandService(
-    IUserRepository userRepository,
+public class AccountCommandService(
+    IAccountRepository accountRepository,
     ITokenService tokenService,
     IHashingService hashingService,
     IUnitOfWork unitOfWork)
-    : IUserCommandService
+    : IAccountCommandService
 {
     /**
      * <summary>
      *     Handle sign in command
      * </summary>
      * <param name="command">The sign in command</param>
-     * <returns>The authenticated user and the JWT token</returns>
+     * <returns>The authenticated account and the JWT token</returns>
      */
-    public async Task<(User user, string token)> Handle(SignInCommand command)
+    public async Task<(Account account, string token)> Handle(SignInCommand command)
     {
-        var user = await userRepository.FindByEmailAsync(command.Email);
+        var account = await accountRepository.FindByEmailAsync(command.Email);
 
-        if (user == null || !hashingService.VerifyPassword(command.Password, user.PasswordHash))
+        if (account == null || !hashingService.VerifyPassword(command.Password, account.PasswordHash))
             throw new Exception("Invalid email or password");
 
-        var token = tokenService.GenerateToken(user);
+        var token = tokenService.GenerateToken(account);
 
-        return (user, token);
+        return (account, token);
     }
 
     /**
@@ -50,19 +50,19 @@ public class UserCommandService(
      */
     public async Task Handle(SignUpCommand command)
     {
-        if (userRepository.ExistsByEmail(command.Email))
+        if (accountRepository.ExistsByEmail(command.Email))
             throw new Exception($"Email {command.Email} is already taken");
 
         var hashedPassword = hashingService.HashPassword(command.Password);
-        var user = new User(command.Uid, command.Email, hashedPassword);
+        var account = new Account(command.Uid, command.Email, hashedPassword);
         try
         {
-            await userRepository.AddAsync(user);
+            await accountRepository.AddAsync(account);
             await unitOfWork.CompleteAsync();
         }
         catch (Exception e)
         {
-            throw new Exception($"An error occurred while creating user: {e.Message}");
+            throw new Exception($"An error occurred while creating account: {e.Message}");
         }
     }
-}
+} 

@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
+using System.Text.Json.Serialization;
 
 namespace TuChambaPe.IAM.Domain.Model.Aggregates
 {
-    public class User(Guid uid, string email, string passwordHash)
+    public class Account(Guid uid, string email, string passwordHash)
     {
-        public User() : this(Guid.NewGuid(), string.Empty, string.Empty)
+        public Account() : this(Guid.NewGuid(), string.Empty, string.Empty)
         {
         }
 
@@ -21,9 +21,9 @@ namespace TuChambaPe.IAM.Domain.Model.Aggregates
          *     Update email
          * </summary>
          * <param name="email">The new email</param>
-         * <returns>The updated user</returns>
+         * <returns>The updated account</returns>
         */
-        public User UpdateEmail(string email)
+        public Account UpdateEmail(string email)
         {
             Email = email;
             return this;
@@ -35,12 +35,12 @@ namespace TuChambaPe.IAM.Domain.Model.Aggregates
          *     Update the password hash
          * </summary>
          * <param name="passwordHash">The new password hash</param>
-         * <returns>The updated user</returns>
+         * <returns>The updated account</returns>
          */
-        public User UpdatePasswordHash(string passwordHash)
+        public Account UpdatePasswordHash(string passwordHash)
         {
             PasswordHash = passwordHash;
             return this;
         }
     }
-}
+} 

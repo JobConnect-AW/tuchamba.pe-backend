@@ -40,12 +40,12 @@ namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration
 
             // IAM Context
 
-            builder.Entity<User>().HasKey(u => u.Id);
-            builder.Entity<User>().HasIndex(u => u.Uid).IsUnique();
-            builder.Entity<User>().Property(u => u.Id).IsRequired().ValueGeneratedOnAdd();
-            builder.Entity<User>().Property(u => u.Uid).IsRequired();
-            builder.Entity<User>().Property(u => u.Email).IsRequired();
-            builder.Entity<User>().Property(u => u.PasswordHash).IsRequired();
+            builder.Entity<Account>().HasKey(a => a.Id);
+            builder.Entity<Account>().HasIndex(a => a.Uid).IsUnique();
+            builder.Entity<Account>().Property(a => a.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.Entity<Account>().Property(a => a.Uid).IsRequired();
+            builder.Entity<Account>().Property(a => a.Email).IsRequired();
+            builder.Entity<Account>().Property(a => a.PasswordHash).IsRequired();
 
             // Offers Context
 
