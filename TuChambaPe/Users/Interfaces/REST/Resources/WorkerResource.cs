@@ -1,0 +1,3 @@
+namespace TuChambaPe.Users.Interfaces.REST.Resources;
+
+public record WorkerResource(Guid Uid, string FirstName, string LastName, string Phone, string? Avatar, string ProfileType, string Location, string Bio, List<string> Skills, int Experience, List<string> Certifications, double Rating, int ReviewCount, bool IsVerified, Dictionary<string, string>? Availability, string? YapeNumber, string? PlinNumber, string? BankAccountNumber, DateTime CreatedAt, DateTime UpdatedAt);

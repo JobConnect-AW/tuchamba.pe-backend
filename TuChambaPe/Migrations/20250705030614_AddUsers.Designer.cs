@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 
@@ -11,9 +12,11 @@ using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 namespace TuChambaPe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250705030614_AddUsers")]
+    partial class AddUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -168,65 +171,6 @@ namespace TuChambaPe.Migrations
                         .HasDatabaseName("i_x_proposals_uid");
 
                     b.ToTable("proposals");
-                });
-
-            modelBuilder.Entity("TuChambaPe.Reviews.Domain.Model.Aggregates.Review", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("id");
-
-                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<Guid>("AuthorUserId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("author_user_id");
-
-                    b.Property<string>("Comment")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("varchar(1000)")
-                        .HasColumnName("comment");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("created_at");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("int")
-                        .HasColumnName("rating");
-
-                    b.Property<Guid>("ReceiverUserId")
-                        .HasColumnType("char(36)")
-                        .HasColumnName("receiver_user_id");
-
-                    b.Property<Guid>("Uid")
-                        .HasMaxLength(36)
-                        .HasColumnType("char(36)")
-                        .HasColumnName("uid");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("updated_at");
-
-                    b.HasKey("Id")
-                        .HasName("p_k_reviews");
-
-                    b.HasIndex("AuthorUserId")
-                        .HasDatabaseName("i_x_reviews_author_user_id");
-
-                    b.HasIndex("Rating")
-                        .HasDatabaseName("i_x_reviews_rating");
-
-                    b.HasIndex("ReceiverUserId")
-                        .HasDatabaseName("i_x_reviews_receiver_user_id");
-
-                    b.HasIndex("Uid")
-                        .IsUnique()
-                        .HasDatabaseName("i_x_reviews_uid");
-
-                    b.ToTable("reviews", (string)null);
                 });
 
             modelBuilder.Entity("TuChambaPe.Users.Domain.Model.Aggregates.Customer", b =>
