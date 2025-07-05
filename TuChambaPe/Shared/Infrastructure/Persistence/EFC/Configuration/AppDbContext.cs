@@ -4,6 +4,8 @@ using TuChambaPe.IAM.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using TuChambaPe.Proposals.Infrastructure.Persistence.EFC.Configuration.Extensions;
 using EntityFrameworkCore.CreatedUpdatedDate.Extensions;
 using Microsoft.EntityFrameworkCore;
+using TuChambaPe.Reviews.Infrastructure.Persistence.EFC.Configuration.Extensions;
+using TuChambaPe.Users.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
 namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 
@@ -52,7 +54,12 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
 
         // Proposals Context
         builder.ApplyProposalsConfiguration();
-
+        
+        // Reviews Context
+        builder.ApplyReviewsConfiguration(); 
+        
+        // Proposals Context
+        builder.ApplyUsersConfiguration();
         
         // General Naming Convention for the database objects
         builder.UseSnakeCaseNamingConvention();

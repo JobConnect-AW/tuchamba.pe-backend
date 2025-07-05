@@ -692,12 +692,7 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-
-appsettings.json
-./**/appsettings.json
-TuChambaPe/appsettings.json
-./TuChambaPe/appsettings.json
-
+**/appsettings.Development.json
 # JetBrains Rider
 
 

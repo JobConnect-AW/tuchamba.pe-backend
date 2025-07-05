@@ -1,0 +1,3 @@
+namespace TuChambaPe.Users.Domain.Model.Commands;
+
+public record UpdateWorkerCommand(Guid Uid, string? FirstName = null, string? LastName = null, string? Phone = null, string? Avatar = null, string? ProfileType = null, string? Location = null, string? Bio = null, List<string>? Skills = null, int? Experience = null, List<string>? Certifications = null, Dictionary<string, string>? Availability = null, string? YapeNumber = null, string? PlinNumber = null, string? BankAccountNumber = null);
