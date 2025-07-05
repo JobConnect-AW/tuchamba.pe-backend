@@ -16,6 +16,8 @@ RUN dotnet publish -c Release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:${DOTNET_SDK_VERSION}
 ENV ASPNETCORE_URLS http://+:8080
 ENV ASPNETCORE_ENVIRONMENT Production 
+ENV DEFAULT_CONNECTION ${DEFAULT_CONNECTION}
+ENV SECRET_TOKEN_JWT ${SECRET_TOKEN_JWT}
 EXPOSE 8080
 WORKDIR /app
 COPY --from=build /app .
