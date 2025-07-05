@@ -3,6 +3,7 @@ using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories;
+using System.Linq.Expressions;
 
 /// <summary>
 ///     Base repository for all repositories
@@ -33,9 +34,14 @@ public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : 
     }
 
     // inheritedDoc
-    public async Task<TEntity?> FindByIdAsync(int id)
+    public async Task<TEntity?> FindByUidAsync(Guid uid)
     {
-        return await Context.Set<TEntity>().FindAsync(id);
+        var parameter = Expression.Parameter(typeof(TEntity), "e");
+        var property = Expression.Property(parameter, "Uid");
+        var equal = Expression.Equal(property, Expression.Constant(uid));
+        var lambda = Expression.Lambda<Func<TEntity, bool>>(equal, parameter);
+            
+        return await Context.Set<TEntity>().FirstOrDefaultAsync(lambda);
     }
 
     // inheritedDoc
