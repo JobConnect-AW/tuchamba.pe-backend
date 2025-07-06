@@ -1,10 +1,10 @@
+using System.Reflection;
 using Microsoft.OpenApi.Models;
 
 using Cortex.Mediator.Behaviors;
 using Cortex.Mediator.Commands;
 using Cortex.Mediator.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using TuChambaPe.IAM.Application.Internal.CommandServices;
 using TuChambaPe.IAM.Application.Internal.OutboundServices;
 using TuChambaPe.IAM.Application.Internal.QueryServices;
@@ -27,10 +27,20 @@ using TuChambaPe.Proposals.Application.Internal.QueryServices;
 using TuChambaPe.Proposals.Domain.Repositories;
 using TuChambaPe.Proposals.Domain.Services;
 using TuChambaPe.Proposals.Infrastructure.Persistence.EFC.Repositories;
+using TuChambaPe.Reviews.Application.Internal.CommandServices;
+using TuChambaPe.Reviews.Application.Internal.QueryServices;
+using TuChambaPe.Reviews.Domain.Repositories;
+using TuChambaPe.Reviews.Domain.Services;
+using TuChambaPe.Reviews.Infrastructure.Persistence.EFC.Repositories;
 using TuChambaPe.Shared.Domain.Repositories;
 using TuChambaPe.Shared.Infrastructure.Interfaces.ASP.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Repositories;
+using TuChambaPe.Users.Application.Internal.CommandServices;
+using TuChambaPe.Users.Application.Internal.QueryServices;
+using TuChambaPe.Users.Domain.Repositories;
+using TuChambaPe.Users.Domain.Services;
+using TuChambaPe.Users.Infrastructure.Persistence.EFC.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +48,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 builder.Services.AddControllers(options => options.Conventions.Add(new KebabCaseRouteNamingConvention()));
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = !string.IsNullOrEmpty(builder.Configuration.GetConnectionString("DefaultConnection"))
+    ? builder.Configuration.GetConnectionString("DefaultConnection")
+    : Environment.GetEnvironmentVariable("DefaultConnection");
 
 // Add CORS Policy
 builder.Services.AddCors(options =>
@@ -121,7 +133,17 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // IAM Bounded Context Injection Configuration
 // TokenSettings Configuration
-builder.Services.Configure<TokenSettings>(builder.Configuration.GetSection("TokenSettings"));
+var secretTokenJwt = Environment.GetEnvironmentVariable("SECRET_TOKEN_JWT");
+
+builder.Services.Configure<TokenSettings>(options =>
+{
+    builder.Configuration.GetSection("TokenSettings").Bind(options);
+
+    if (string.IsNullOrEmpty(options.Secret) && !string.IsNullOrEmpty(secretTokenJwt))
+    {
+        options.Secret = secretTokenJwt;
+    }
+});
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountCommandService, AccountCommandService>();
@@ -137,6 +159,22 @@ builder.Services.AddScoped<IOfferQueryService, OfferQueryService>();
 builder.Services.AddScoped<IProposalRepository, ProposalRepository>();
 builder.Services.AddScoped<IProposalCommandService, ProposalCommandService>();
 builder.Services.AddScoped<IProposalQueryService, ProposalQueryService>();
+
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IReviewCommandService, ReviewCommandService>();
+builder.Services.AddScoped<IReviewQueryService, ReviewQueryService>();
+
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerCommandService, CustomerCommandService>();
+builder.Services.AddScoped<ICustomerQueryService, CustomerQueryService>();
+
+builder.Services.AddScoped<IWorkerRepository, WorkerRepository>();
+builder.Services.AddScoped<IWorkerCommandService, WorkerCommandService>();
+builder.Services.AddScoped<IWorkerQueryService, WorkerQueryService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserCommandService, UserCommandService>();
+builder.Services.AddScoped<IUserQueryService, UserQueryService>();
 
 // Add Mediator Injection Configuration
 builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCommandBehavior<>));
