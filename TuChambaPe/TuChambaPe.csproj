@@ -5,11 +5,15 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
+   
   <ItemGroup>
     <None Remove="IAM\Interfaces\REST\Resources\AuthenticatedUserResource.cs~RF325204.TMP" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <UserSecretsId>acd56ccf-a361-42ec-9f79-f07de021e466</UserSecretsId>
+  </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Cortex.Mediator" Version="1.6.1" />
