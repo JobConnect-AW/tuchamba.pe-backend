@@ -50,7 +50,7 @@ builder.Services.AddControllers(options => options.Conventions.Add(new KebabCase
 
 var connectionString = !string.IsNullOrEmpty(builder.Configuration.GetConnectionString("DefaultConnection"))
     ? builder.Configuration.GetConnectionString("DefaultConnection")
-    : Environment.GetEnvironmentVariable("DefaultConnection");
+    : Environment.GetEnvironmentVariable("DEFAULT_CONNECTION");
 
 // Add CORS Policy
 builder.Services.AddCors(options =>
