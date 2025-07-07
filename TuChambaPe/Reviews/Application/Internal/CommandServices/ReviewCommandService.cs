@@ -6,6 +6,15 @@ using TuChambaPe.Shared.Domain.Repositories;
 
 namespace TuChambaPe.Reviews.Application.Internal.CommandServices;
 
+/**
+ * <summary>
+ *     The review command service
+ * </summary>
+ * <remarks>
+ *     This service is used to handle review commands
+ * </remarks>
+ */
+
 public class ReviewCommandService(IReviewRepository reviewRepository, IUnitOfWork unitOfWork) : IReviewCommandService
 {
     public async Task<Review> Handle(CreateReviewCommand command)
