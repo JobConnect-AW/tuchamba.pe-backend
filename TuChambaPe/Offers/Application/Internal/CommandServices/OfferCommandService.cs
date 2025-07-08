@@ -53,6 +53,7 @@ public class OfferCommandService(
         if (offer == null)
             throw new Exception($"Offer with Uid {command.Id} not found");
 
+        
         // Update offer properties
         // Note: Since properties are private set, we might need to add update methods to the Offer entity
         // For now, we'll throw an exception indicating this needs to be implemented

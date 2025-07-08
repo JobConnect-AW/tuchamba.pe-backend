@@ -9,10 +9,13 @@ public static class UpdateProposalCommandFromResourceAssembler
     {
         return new UpdateProposalCommand(
             uid,
-            resource.Title,
-            resource.Description,
+            resource.OfferUid,
+            resource.WorkerUid,
+            resource.Message,
             resource.Price,
-            resource.EstimatedTime,
-            resource.Status);
+            DateTime.UtcNow,
+            resource.UpdatedBy,
+            resource.Status
+        );
     }
 } 

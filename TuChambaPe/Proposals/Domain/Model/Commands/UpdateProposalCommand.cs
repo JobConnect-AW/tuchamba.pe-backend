@@ -4,9 +4,11 @@ namespace TuChambaPe.Proposals.Domain.Model.Commands;
 
 public record UpdateProposalCommand(
     Guid Uid,
-    string Title,
-    string Description,
+    Guid OfferUid,
+    Guid WorkerUid,
+    string Message,
     decimal Price,
-    string EstimatedTime,
+    DateTime? UpdatedAt,
+    string? UpdatedBy,
     string Status
 ); 

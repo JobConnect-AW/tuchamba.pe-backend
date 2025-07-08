@@ -1,3 +1,4 @@
+using Cortex.Mediator;
 using TuChambaPe.Proposals.Domain.Model.Aggregates;
 using TuChambaPe.Proposals.Domain.Model.Commands;
 using TuChambaPe.Proposals.Domain.Repositories;
@@ -16,7 +17,8 @@ namespace TuChambaPe.Proposals.Application.Internal.CommandServices;
  */
 public class ProposalCommandService(
     IProposalRepository proposalRepository,
-    IUnitOfWork unitOfWork)
+    IUnitOfWork unitOfWork,
+    IMediator notificationPublisher)
     : IProposalCommandService
 {
     /**
@@ -33,12 +35,15 @@ public class ProposalCommandService(
         {
             await proposalRepository.AddAsync(proposal);
             await unitOfWork.CompleteAsync();
+            // Publicar evento ProposalCreatedEvent
+            var createdEvent = new Domain.Model.Events.ProposalCreatedEvent(proposal.Uid, proposal.OfferUid);
+            await notificationPublisher.PublishAsync(createdEvent);
             return proposal;
         }
         catch (Exception e)
         {
             throw new Exception($"An error occurred while creating proposal: {e.Message}");
-        } 
+        }
     }
 
     /**
@@ -52,8 +57,26 @@ public class ProposalCommandService(
         var proposal = await proposalRepository.FindByUidAsync(command.Uid);
         if (proposal == null)
             throw new Exception($"Proposal with Uid {command.Uid} not found");
-        // Implementar lógica de actualización según el nuevo modelo si es necesario
-        throw new NotImplementedException("Update functionality needs to be implemented in the Proposal entity");
+        
+        proposal.updateProposal(new Proposal(
+            command.Uid,
+            proposal.OfferUid,
+            proposal.WorkerUid,
+            command.Message,
+            command.Price,
+            proposal.CreatedAt,
+            DateTime.UtcNow,
+            proposal.CreatedBy,
+            command.UpdatedBy,
+            command.Status
+            ));
+
+        await proposalRepository.UpdateAsync(proposal);
+        await unitOfWork.CompleteAsync();
+        // Publicar evento ProposalUpdatedEvent
+        
+        var updatedEvent = new Domain.Model.Events.ProposalAcceptedEvent(proposal.Uid, proposal.OfferUid);
+        await notificationPublisher.PublishAsync(updatedEvent);
     }
 
     /**

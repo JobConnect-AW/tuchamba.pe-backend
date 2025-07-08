@@ -10,6 +10,7 @@ namespace TuChambaPe.Users.Domain.Model.Aggregates
 
         public int Id { get; }
         public Guid Uid { get; } = uid;
+        
         public string FirstName { get; private set; } = firstName;
         public string LastName { get; private set; } = lastName;
         public string Phone { get; private set; } = phone;

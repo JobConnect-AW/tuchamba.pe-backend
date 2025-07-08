@@ -10,4 +10,26 @@ public class OfferRepository(AppDbContext context)
     : BaseRepository<Offer>(context), IOfferRepository
 {
     
+    
+    public async Task IncrementProposalsCountAsync(Guid offerUid)
+    {
+        var offer = await Context.Set<Offer>().FindAsync(offerUid);
+        if (offer != null)
+        {
+            offer.IncrementProposalsCount();
+            await context.SaveChangesAsync();
+        }
+    }
+
+    public async Task SetInProcessAsync(Guid offerUid, Guid selectedProposalUid)
+    {
+        var offer = await Context.Set<Offer>().FindAsync(offerUid);
+        if (offer != null)
+        {
+            offer.SetInProcess(selectedProposalUid);
+            await context.SaveChangesAsync();
+        }
+    }
+    
+    
 }

@@ -34,6 +34,17 @@ public partial class Offer
     {
     }
 
+    public void IncrementProposalsCount()
+    {
+        ProposalsCount++;
+    }
+    
+    public void SetInProcess(Guid selectedProposalUid)
+    {
+        Status = OfferStatus.EN_PROCESO;
+        SelectedProposalUid = selectedProposalUid;
+    }
+
     public int Id { get; }
     public Guid Uid { get; private set; }
     public string Title { get; private set; }

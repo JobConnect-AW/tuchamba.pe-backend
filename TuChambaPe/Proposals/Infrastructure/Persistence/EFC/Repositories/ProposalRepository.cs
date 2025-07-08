@@ -8,5 +8,9 @@ namespace TuChambaPe.Proposals.Infrastructure.Persistence.EFC.Repositories;
 public class ProposalRepository(AppDbContext context)
     : BaseRepository<Proposal>(context), IProposalRepository
 {
-    
+    public new async Task UpdateAsync(Proposal proposal)
+    {
+        Context.Set<Proposal>().Update(proposal);
+        await Task.CompletedTask;
+    }
 } 

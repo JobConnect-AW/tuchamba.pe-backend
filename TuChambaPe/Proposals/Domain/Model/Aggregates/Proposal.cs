@@ -5,7 +5,9 @@ namespace TuChambaPe.Proposals.Domain.Model.Aggregates;
 
 public partial class Proposal
 {
-    public Proposal(Guid uid, ValueObjects.OfferUid offerUid, ValueObjects.WorkerUid workerUid, string message, decimal price, DateTime createdAt, DateTime? updatedAt = null, string? createdBy = null, string? updatedBy = null, string status = null)
+    public Proposal(Guid uid, ValueObjects.OfferUid offerUid, ValueObjects.WorkerUid workerUid, string message,
+        decimal price, DateTime createdAt, DateTime? updatedAt = null, string? createdBy = null,
+        string? updatedBy = null, string status = null)
     {
         Uid = uid;
         OfferUid = offerUid;
@@ -25,10 +27,26 @@ public partial class Proposal
     public ValueObjects.WorkerUid WorkerUid { get; private set; }
     public string Message { get; private set; }
     public decimal Price { get; private set; }
+
     public string Status { get; private set; }
+
     // Auditoría
     public DateTime CreatedAt { get; private set; }
     public DateTime? UpdatedAt { get; private set; }
     public string? CreatedBy { get; private set; }
     public string? UpdatedBy { get; private set; }
-} 
+
+    public void updateProposal(Proposal proposal)
+    {
+        Uid = proposal.Uid;
+        OfferUid = proposal.OfferUid;
+        WorkerUid = proposal.WorkerUid;
+        Message = proposal.Message;
+        Price = proposal.Price;
+        CreatedAt =proposal.CreatedAt;
+        UpdatedAt =proposal.UpdatedAt;
+        CreatedBy =proposal.CreatedBy;
+        UpdatedBy =proposal.UpdatedBy;
+        Status = proposal.Status ?? ValueObjects.ProposalStatus.SUBMITTED;
+    }
+}
