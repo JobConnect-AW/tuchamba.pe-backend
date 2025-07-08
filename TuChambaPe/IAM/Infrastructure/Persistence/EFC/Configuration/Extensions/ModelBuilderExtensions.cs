@@ -15,5 +15,6 @@ public static class ModelBuilderExtensions
         builder.Entity<Account>().Property(a => a.Uid).IsRequired();
         builder.Entity<Account>().Property(a => a.Email).IsRequired();
         builder.Entity<Account>().Property(a => a.PasswordHash).IsRequired();
+        builder.Entity<Account>().Property(a => a.Role).IsRequired().HasMaxLength(20);
     }
 }

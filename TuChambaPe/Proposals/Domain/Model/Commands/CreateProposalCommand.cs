@@ -4,12 +4,10 @@ namespace TuChambaPe.Proposals.Domain.Model.Commands;
 
 public record CreateProposalCommand(
     Guid Uid,
+    Guid OfferUid,
     Guid WorkerUid,
-    Guid CustomerUid,
-    string Title,
-    string Description,
+    string Message,
     decimal Price,
-    string EstimatedTime,
-    string Status,
-    DateTime SubmittedAt
+    DateTime CreatedAt,
+    string? Status
 ); 

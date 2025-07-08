@@ -48,24 +48,20 @@ public class ProposalQueryService(IProposalRepository proposalRepository) : IPro
      */
     public async Task<IEnumerable<Proposal>> Handle(GetProposalsByWorkerId query)
     {
-        // Note: This needs to be implemented in the repository with a specific method
-        // For now, we'll get all proposals and filter in memory
         var allProposals = await proposalRepository.ListAsync();
-        return allProposals.Where(p => p.WorkerUid == query.WorkerUid);
+        return allProposals.Where(p => p.WorkerUid.Value == query.WorkerUid);
     }
 
     /**
      * <summary>
-     *     Handle get proposals by customer id query
+     *     Handle get proposals by offer id query
      * </summary>
-     * <param name="query">The query object containing the customer id to search</param>
+     * <param name="query">The query object containing the offer id to search</param>
      * <returns>The proposals</returns>
      */
-    public async Task<IEnumerable<Proposal>> Handle(GetProposalsByCustomerId query)
+    public async Task<IEnumerable<Proposal>> Handle(GetProposalsByOfferId query)
     {
-        // Note: This needs to be implemented in the repository with a specific method
-        // For now, we'll get all proposals and filter in memory
         var allProposals = await proposalRepository.ListAsync();
-        return allProposals.Where(p => p.CustomerUid == query.CustomerUid);
+        return allProposals.Where(p => p.OfferUid.Value == query.OfferUid);
     }
 } 

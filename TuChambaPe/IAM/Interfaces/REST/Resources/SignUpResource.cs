@@ -1,3 +1,3 @@
 namespace TuChambaPe.IAM.Interfaces.REST.Resources;
 
-public record SignUpResource(Guid Uid, string Email, string Password);
+public record SignUpResource(Guid Uid, string Email, string Password, string Role);

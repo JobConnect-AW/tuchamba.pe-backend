@@ -8,8 +8,4 @@ public interface IProposalCommandService
     Task<Proposal> Handle(CreateProposalCommand command);
     Task Handle(UpdateProposalCommand command);
     Task Handle(DeleteProposalCommand command);
-    Task Handle(AcceptProposalCommand command);
-    Task Handle(RejectProposalCommand command);
-    Task Handle(MarkAsInProgressProposalCommand command);
-    Task Handle(CompleteProposalCommand command);
 } 

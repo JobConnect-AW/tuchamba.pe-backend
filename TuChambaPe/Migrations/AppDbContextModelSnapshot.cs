@@ -41,6 +41,12 @@ namespace TuChambaPe.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("password_hash");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("role");
+
                     b.Property<Guid>("Uid")
                         .HasColumnType("char(36)")
                         .HasColumnName("uid");
@@ -111,6 +117,77 @@ namespace TuChambaPe.Migrations
                     b.ToTable("offers");
                 });
 
+            modelBuilder.Entity("TuChambaPe.Payments.Domain.Model.Aggregates.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)")
+                        .HasColumnName("amount");
+
+                    b.Property<DateTimeOffset?>("CreatedDate")
+                        .IsRequired()
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("Currency")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .HasColumnType("varchar(3)")
+                        .HasColumnName("currency");
+
+                    b.Property<bool>("CustomerVerified")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("customer_verified");
+
+                    b.Property<Guid>("OfferUid")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("offer_uid");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("varchar(20)")
+                        .HasColumnName("status");
+
+                    b.Property<Guid>("Uid")
+                        .HasColumnType("char(36)")
+                        .HasColumnName("uid");
+
+                    b.Property<DateTimeOffset?>("UpdatedDate")
+                        .IsRequired()
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<bool>("WorkerVerified")
+                        .HasColumnType("tinyint(1)")
+                        .HasColumnName("worker_verified");
+
+                    b.HasKey("Id")
+                        .HasName("p_k_payments");
+
+                    b.HasIndex("CreatedDate")
+                        .HasDatabaseName("ix_payments_created_at");
+
+                    b.HasIndex("OfferUid")
+                        .IsUnique()
+                        .HasDatabaseName("ix_payments_offer_uid_unique");
+
+                    b.HasIndex("Status")
+                        .HasDatabaseName("ix_payments_status");
+
+                    b.HasIndex("Uid")
+                        .IsUnique()
+                        .HasDatabaseName("ix_payments_uid");
+
+                    b.ToTable("payments", (string)null);
+                });
+
             modelBuilder.Entity("TuChambaPe.Proposals.Domain.Model.Aggregates.Proposal", b =>
                 {
                     b.Property<int>("Id")
@@ -120,19 +197,22 @@ namespace TuChambaPe.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<Guid>("CustomerUid")
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext")
+                        .HasColumnName("created_by");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("longtext")
+                        .HasColumnName("message");
+
+                    b.Property<Guid>("OfferUid")
                         .HasColumnType("char(36)")
-                        .HasColumnName("customer_uid");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("description");
-
-                    b.Property<string>("EstimatedTime")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("estimated_time");
+                        .HasColumnName("offer_uid");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(65,30)")
@@ -143,18 +223,17 @@ namespace TuChambaPe.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("status");
 
-                    b.Property<DateTime>("SubmittedAt")
-                        .HasColumnType("datetime(6)")
-                        .HasColumnName("submitted_at");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("longtext")
-                        .HasColumnName("title");
-
                     b.Property<Guid>("Uid")
                         .HasColumnType("char(36)")
                         .HasColumnName("uid");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("updated_at");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("longtext")
+                        .HasColumnName("updated_by");
 
                     b.Property<Guid>("WorkerUid")
                         .HasColumnType("char(36)")

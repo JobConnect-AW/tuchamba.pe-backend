@@ -7,6 +7,6 @@ public static class AccountResourceFromEntityAssembler
 {
     public static AccountResource ToResourceFromEntity(Account account)
     {
-        return new AccountResource(account.Uid, account.Email);
+        return new AccountResource(account.Uid, account.Email, account.Role);
     }
 } 

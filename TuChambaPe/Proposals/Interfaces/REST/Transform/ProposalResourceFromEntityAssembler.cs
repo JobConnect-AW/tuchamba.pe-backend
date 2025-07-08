@@ -10,13 +10,15 @@ public static class ProposalResourceFromEntityAssembler
         return new ProposalResource(
             proposal.Id,
             proposal.Uid,
+            proposal.OfferUid,
             proposal.WorkerUid,
-            proposal.CustomerUid,
-            proposal.Title,
-            proposal.Description,
+            proposal.Message,
             proposal.Price,
-            proposal.EstimatedTime,
-            proposal.Status,
-            proposal.SubmittedAt);
+            proposal.CreatedAt,
+            proposal.UpdatedAt,
+            proposal.CreatedBy,
+            proposal.UpdatedBy,
+            proposal.Status
+        );
     }
 } 

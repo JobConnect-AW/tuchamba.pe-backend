@@ -5,7 +5,7 @@ namespace TuChambaPe.IAM.Domain.Model.Commands;
  *     The sign up command
  * </summary>
  * <remarks>
- *     This command object includes the email and password to sign up
+ *     This command object includes the email, password and role to sign up
  * </remarks>
  */
-public record SignUpCommand(Guid Uid, string Email, string Password);
+public record SignUpCommand(Guid Uid, string Email, string Password, string Role);

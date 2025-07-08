@@ -1,64 +1,34 @@
 using TuChambaPe.Proposals.Domain.Model.Commands;
-using TuChambaPe.Proposals.Domain.Model.ValueObjects;
+using TuChambaPe.Proposals.Domain.Model;
 
 namespace TuChambaPe.Proposals.Domain.Model.Aggregates;
 
 public partial class Proposal
 {
-    public Proposal(Guid uid, Guid workerUid, Guid customerUid, string title, string description, decimal price, string estimatedTime, string status, DateTime submittedAt)
+    public Proposal(Guid uid, ValueObjects.OfferUid offerUid, ValueObjects.WorkerUid workerUid, string message, decimal price, DateTime createdAt, DateTime? updatedAt = null, string? createdBy = null, string? updatedBy = null, string status = null)
     {
         Uid = uid;
+        OfferUid = offerUid;
         WorkerUid = workerUid;
-        CustomerUid = customerUid;
-        Title = title;
-        Description = description;
+        Message = message;
         Price = price;
-        EstimatedTime = estimatedTime;
-        Status = ProposalStatus.Validate(status);
-        SubmittedAt = submittedAt;
-    }
-
-    public Proposal(CreateProposalCommand command) : this(
-        command.Uid,
-        command.WorkerUid,
-        command.CustomerUid,
-        command.Title,
-        command.Description,
-        command.Price,
-        command.EstimatedTime,
-        command.Status,
-        command.SubmittedAt)
-    {
+        CreatedAt = createdAt;
+        UpdatedAt = updatedAt;
+        CreatedBy = createdBy;
+        UpdatedBy = updatedBy;
+        Status = status ?? ValueObjects.ProposalStatus.SUBMITTED;
     }
 
     public int Id { get; private set; }
     public Guid Uid { get; private set; }
-    public Guid WorkerUid { get; private set; }
-    public Guid CustomerUid { get; private set; }
-    public string Title { get; private set; }
-    public string Description { get; private set; }
+    public ValueObjects.OfferUid OfferUid { get; private set; }
+    public ValueObjects.WorkerUid WorkerUid { get; private set; }
+    public string Message { get; private set; }
     public decimal Price { get; private set; }
-    public string EstimatedTime { get; private set; }
     public string Status { get; private set; }
-    public DateTime SubmittedAt { get; private set; }
-
-    public void Accept()
-    {
-        Status = ProposalStatus.ACCEPTED;
-    }
-
-    public void Reject()
-    {
-        Status = ProposalStatus.REJECTED;
-    }
-
-    public void MarkAsInProgress()
-    {
-        Status = ProposalStatus.IN_PROGRESS;
-    }
-
-    public void CompleteProposal()
-    {
-        Status = ProposalStatus.COMPLETED;
-    }
+    // Auditoría
+    public DateTime CreatedAt { get; private set; }
+    public DateTime? UpdatedAt { get; private set; }
+    public string? CreatedBy { get; private set; }
+    public string? UpdatedBy { get; private set; }
 } 

@@ -94,21 +94,21 @@ public class ProposalsController(
 
     /**
      * <summary>
-     *     Get proposals by customer uid endpoint. It allows getting proposals by customer uid
+     *     Get proposals by offer uid endpoint. It allows getting proposals by offer uid
      * </summary>
-     * <param name="customerUid">The customer uid</param>
+     * <param name="offerUid">The offer uid</param>
      * <returns>The proposal resources</returns>
      */
-    [HttpGet("customer/{customerUid}")]
+    [HttpGet("offer/{offerUid}")]
     [SwaggerOperation(
-        Summary = "Get proposals by customer uid",
-        Description = "Get proposals by customer uid",
-        OperationId = "GetProposalsByCustomerUid")]
+        Summary = "Get proposals by offer uid",
+        Description = "Get proposals by offer uid",
+        OperationId = "GetProposalsByOfferUid")]
     [SwaggerResponse(StatusCodes.Status200OK, "The proposals were found", typeof(IEnumerable<ProposalResource>))]
-    public async Task<IActionResult> GetProposalsByCustomerUid(Guid customerUid)
+    public async Task<IActionResult> GetProposalsByOfferUid(Guid offerUid)
     {
-        var getProposalsByCustomerIdQuery = new GetProposalsByCustomerId(customerUid);
-        var proposals = await proposalQueryService.Handle(getProposalsByCustomerIdQuery);
+        var getProposalsByOfferIdQuery = new GetProposalsByOfferId(offerUid);
+        var proposals = await proposalQueryService.Handle(getProposalsByOfferIdQuery);
         var proposalResources = proposals.Select(ProposalResourceFromEntityAssembler.ToResourceFromEntity);
         return Ok(proposalResources);
     }
@@ -175,90 +175,6 @@ public class ProposalsController(
     {
         var deleteProposalCommand = new DeleteProposalCommand(uid);
         await proposalCommandService.Handle(deleteProposalCommand);
-        return NoContent();
-    }
-
-    /**
-     * <summary>
-     *     Accept proposal endpoint. It allows accepting a proposal
-     * </summary>
-     * <param name="uid">The proposal uid</param>
-     * <returns>No content</returns>
-     */
-    [HttpPost("{uid}/accept")]
-    [SwaggerOperation(
-        Summary = "Accept a proposal",
-        Description = "Accept a proposal",
-        OperationId = "AcceptProposal")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "The proposal was accepted")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "The proposal was not found")]
-    public async Task<IActionResult> AcceptProposal(Guid uid)
-    {
-        var acceptProposalCommand = new AcceptProposalCommand(uid);
-        await proposalCommandService.Handle(acceptProposalCommand);
-        return NoContent();
-    }
-
-    /**
-     * <summary>
-     *     Reject proposal endpoint. It allows rejecting a proposal
-     * </summary>
-     * <param name="uid">The proposal uid</param>
-     * <returns>No content</returns>
-     */
-    [HttpPost("{uid}/reject")]
-    [SwaggerOperation(
-        Summary = "Reject a proposal",
-        Description = "Reject a proposal",
-        OperationId = "RejectProposal")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "The proposal was rejected")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "The proposal was not found")]
-    public async Task<IActionResult> RejectProposal(Guid uid)
-    {
-        var rejectProposalCommand = new RejectProposalCommand(uid);
-        await proposalCommandService.Handle(rejectProposalCommand);
-        return NoContent();
-    }
-
-    /**
-     * <summary>
-     *     Mark proposal as in progress endpoint. It allows marking a proposal as in progress
-     * </summary>
-     * <param name="uid">The proposal uid</param>
-     * <returns>No content</returns>
-     */
-    [HttpPost("{uid}/in-progress")]
-    [SwaggerOperation(
-        Summary = "Mark a proposal as in progress",
-        Description = "Mark a proposal as in progress",
-        OperationId = "MarkProposalAsInProgress")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "The proposal was marked as in progress")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "The proposal was not found")]
-    public async Task<IActionResult> MarkProposalAsInProgress(Guid uid)
-    {
-        var markAsInProgressProposalCommand = new MarkAsInProgressProposalCommand(uid);
-        await proposalCommandService.Handle(markAsInProgressProposalCommand);
-        return NoContent();
-    }
-
-    /**
-     * <summary>
-     *     Complete proposal endpoint. It allows completing a proposal
-     * </summary>
-     * <param name="uid">The proposal uid</param>
-     * <returns>No content</returns>
-     */
-    [HttpPost("{uid}/complete")]
-    [SwaggerOperation(
-        Summary = "Complete a proposal",
-        Description = "Complete a proposal",
-        OperationId = "CompleteProposal")]
-    [SwaggerResponse(StatusCodes.Status204NoContent, "The proposal was completed")]
-    [SwaggerResponse(StatusCodes.Status404NotFound, "The proposal was not found")]
-    public async Task<IActionResult> CompleteProposal(Guid uid)
-    {
-        var completeProposalCommand = new CompleteProposalCommand(uid);
-        await proposalCommandService.Handle(completeProposalCommand);
         return NoContent();
     }
 } 

@@ -6,9 +6,9 @@ namespace TuChambaPe.IAM.Interfaces.ACL.Services;
 
 public class IamContextFacade(IAccountCommandService accountCommandService, IAccountQueryService accountQueryService) : IIamContextFacade
 {
-    public async Task<int> CreateAccount(Guid uid, string email, string password)
+    public async Task<int> CreateAccount(Guid uid, string email, string password, string role)
     {
-        var signUpCommand = new SignUpCommand(uid, email, password);
+        var signUpCommand = new SignUpCommand(uid, email, password, role);
         await accountCommandService.Handle(signUpCommand);
         var getAccountByEmailQuery = new GetAccountByEmailQuery(email);
         var result = await accountQueryService.Handle(getAccountByEmailQuery);
@@ -27,5 +27,12 @@ public class IamContextFacade(IAccountCommandService accountCommandService, IAcc
         var getAccountByUidQuery = new GetAccountByUidQuery(uid);
         var result = await accountQueryService.Handle(getAccountByUidQuery);
         return result?.Email ?? string.Empty;
+    }
+
+    public async Task<string> FetchRoleByAccountUid(Guid uid)
+    {
+        var getAccountByUidQuery = new GetAccountByUidQuery(uid);
+        var result = await accountQueryService.Handle(getAccountByUidQuery);
+        return result?.Role ?? string.Empty;
     }
 }

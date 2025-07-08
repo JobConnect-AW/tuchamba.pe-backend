@@ -2,4 +2,11 @@ using TuChambaPe.Proposals.Domain.Model.ValueObjects;
 
 namespace TuChambaPe.Proposals.Interfaces.REST.Resources;
 
-public record CreateProposalResource(Guid WorkerUid, Guid CustomerUid, string Title, string Description, decimal Price, string EstimatedTime, string Status); 
+public record CreateProposalResource(
+    Guid Uid,
+    Guid OfferUid,
+    Guid WorkerUid,
+    string Message,
+    decimal Price,
+    string? Status = null
+); 

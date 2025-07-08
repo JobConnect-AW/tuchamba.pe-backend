@@ -41,6 +41,11 @@ using TuChambaPe.Users.Application.Internal.QueryServices;
 using TuChambaPe.Users.Domain.Repositories;
 using TuChambaPe.Users.Domain.Services;
 using TuChambaPe.Users.Infrastructure.Persistence.EFC.Repositories;
+using TuChambaPe.Payments.Application.Internal.CommandServices;
+using TuChambaPe.Payments.Application.Internal.QueryServices;
+using TuChambaPe.Payments.Domain.Repositories;
+using TuChambaPe.Payments.Domain.Services;
+using TuChambaPe.Payments.Infrastructure.Persistence.EFC.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -175,6 +180,10 @@ builder.Services.AddScoped<IWorkerQueryService, WorkerQueryService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserCommandService, UserCommandService>();
 builder.Services.AddScoped<IUserQueryService, UserQueryService>();
+
+builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
+builder.Services.AddScoped<IPaymentCommandService, PaymentCommandService>();
+builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
 
 // Add Mediator Injection Configuration
 builder.Services.AddScoped(typeof(ICommandPipelineBehavior<>), typeof(LoggingCommandBehavior<>));

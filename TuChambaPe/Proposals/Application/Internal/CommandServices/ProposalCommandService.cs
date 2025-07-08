@@ -28,7 +28,7 @@ public class ProposalCommandService(
      */
     public async Task<Proposal> Handle(CreateProposalCommand command)
     {
-        var proposal = new Proposal(command);
+        var proposal = new Proposal(command.Uid, command.OfferUid, command.WorkerUid, command.Message, command.Price, command.CreatedAt, null, null, null, command.Status);
         try
         {
             await proposalRepository.AddAsync(proposal);
@@ -38,7 +38,7 @@ public class ProposalCommandService(
         catch (Exception e)
         {
             throw new Exception($"An error occurred while creating proposal: {e.Message}");
-        }
+        } 
     }
 
     /**
@@ -52,10 +52,7 @@ public class ProposalCommandService(
         var proposal = await proposalRepository.FindByUidAsync(command.Uid);
         if (proposal == null)
             throw new Exception($"Proposal with Uid {command.Uid} not found");
-
-        // Update proposal properties
-        // Note: Since properties are private set, we might need to add update methods to the Proposal entity
-        // For now, we'll throw an exception indicating this needs to be implemented
+        // Implementar lógica de actualización según el nuevo modelo si es necesario
         throw new NotImplementedException("Update functionality needs to be implemented in the Proposal entity");
     }
 
@@ -70,7 +67,6 @@ public class ProposalCommandService(
         var proposal = await proposalRepository.FindByUidAsync(command.Uid);
         if (proposal == null)
             throw new Exception($"Proposal with Uid {command.Uid} not found");
-
         try
         {
             proposalRepository.Remove(proposal);
@@ -79,98 +75,6 @@ public class ProposalCommandService(
         catch (Exception e)
         {
             throw new Exception($"An error occurred while deleting proposal: {e.Message}");
-        }
-    }
-
-    /**
-     * <summary>
-     *     Handle accept proposal command
-     * </summary>
-     * <param name="command">The accept proposal command</param>
-     */
-    public async Task Handle(AcceptProposalCommand command)
-    {
-        var proposal = await proposalRepository.FindByUidAsync(command.Uid);
-        if (proposal == null)
-            throw new Exception($"Proposal with Uid {command.Uid} not found");
-
-        try
-        {
-            proposal.Accept();
-            await unitOfWork.CompleteAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"An error occurred while accepting proposal: {e.Message}");
-        }
-    }
-
-    /**
-     * <summary>
-     *     Handle reject proposal command
-     * </summary>
-     * <param name="command">The reject proposal command</param>
-     */
-    public async Task Handle(RejectProposalCommand command)
-    {
-        var proposal = await proposalRepository.FindByUidAsync(command.Uid);
-        if (proposal == null)
-            throw new Exception($"Proposal with Uid {command.Uid} not found");
-
-        try
-        {
-            proposal.Reject();
-            await unitOfWork.CompleteAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"An error occurred while rejecting proposal: {e.Message}");
-        }
-    }
-
-    /**
-     * <summary>
-     *     Handle mark as in progress proposal command
-     * </summary>
-     * <param name="command">The mark as in progress proposal command</param>
-     */
-    public async Task Handle(MarkAsInProgressProposalCommand command)
-    {
-        var proposal = await proposalRepository.FindByUidAsync(command.Uid);
-        if (proposal == null)
-            throw new Exception($"Proposal with Uid {command.Uid} not found");
-
-        try
-        {
-            proposal.MarkAsInProgress();
-            await unitOfWork.CompleteAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"An error occurred while marking proposal as in progress: {e.Message}");
-        }
-    }
-
-    /**
-     * <summary>
-     *     Handle complete proposal command
-     * </summary>
-     * <param name="command">The complete proposal command</param>
-     */
-    public async Task Handle(CompleteProposalCommand command)
-    {
-        var proposal = await proposalRepository.FindByUidAsync(command.Uid);
-        if (proposal == null)
-            throw new Exception($"Proposal with Uid {command.Uid} not found");
-
-        try
-        {
-            proposal.CompleteProposal();
-            await unitOfWork.CompleteAsync();
-        }
-        catch (Exception e)
-        {
-            throw new Exception($"An error occurred while completing proposal: {e.Message}");
         }
     }
 } 

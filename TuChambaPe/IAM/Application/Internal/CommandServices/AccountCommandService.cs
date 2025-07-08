@@ -1,9 +1,12 @@
+using Cortex.Mediator;
 using TuChambaPe.IAM.Application.Internal.OutboundServices;
 using TuChambaPe.IAM.Domain.Model.Aggregates;
 using TuChambaPe.IAM.Domain.Model.Commands;
+using TuChambaPe.IAM.Domain.Model.Events;
 using TuChambaPe.IAM.Domain.Repositories;
 using TuChambaPe.IAM.Domain.Services;
 using TuChambaPe.Shared.Domain.Repositories;
+using Cortex.Mediator.Notifications;
 
 namespace TuChambaPe.IAM.Application.Internal.CommandServices;
 
@@ -19,7 +22,8 @@ public class AccountCommandService(
     IAccountRepository accountRepository,
     ITokenService tokenService,
     IHashingService hashingService,
-    IUnitOfWork unitOfWork)
+    IUnitOfWork unitOfWork,
+    IMediator notificationPublisher)
     : IAccountCommandService
 {
     /**
@@ -54,11 +58,19 @@ public class AccountCommandService(
             throw new Exception($"Email {command.Email} is already taken");
 
         var hashedPassword = hashingService.HashPassword(command.Password);
-        var account = new Account(command.Uid, command.Email, hashedPassword);
+        var account = new Account(command.Uid, command.Email, hashedPassword, command.Role);
         try
         {
             await accountRepository.AddAsync(account);
             await unitOfWork.CompleteAsync();
+            
+            // Publish AccountCreatedEvent after successful account creation
+            var accountCreatedEvent = new AccountCreatedEvent(
+                account.Uid,
+                account.Role, 
+                DateTime.UtcNow);
+            
+            await notificationPublisher.PublishAsync(accountCreatedEvent);
         }
         catch (Exception e)
         {

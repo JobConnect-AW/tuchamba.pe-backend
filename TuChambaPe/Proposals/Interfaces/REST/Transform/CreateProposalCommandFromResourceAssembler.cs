@@ -8,14 +8,13 @@ public static class CreateProposalCommandFromResourceAssembler
     public static CreateProposalCommand ToCommandFromResource(CreateProposalResource resource)
     {
         return new CreateProposalCommand(
-            Guid.NewGuid(),
+            resource.Uid,
+            resource.OfferUid,
             resource.WorkerUid,
-            resource.CustomerUid,
-            resource.Title,
-            resource.Description,
+            resource.Message,
             resource.Price,
-            resource.EstimatedTime,
-            resource.Status,
-            DateTime.UtcNow);
+            DateTime.UtcNow,
+            resource.Status
+        );
     }
 } 
