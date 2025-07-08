@@ -8,7 +8,6 @@ public static class ProposalResourceFromEntityAssembler
     public static ProposalResource ToResourceFromEntity(Proposal proposal)
     {
         return new ProposalResource(
-            proposal.Id,
             proposal.Uid,
             proposal.OfferUid,
             proposal.WorkerUid,

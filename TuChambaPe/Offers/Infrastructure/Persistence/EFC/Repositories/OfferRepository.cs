@@ -31,6 +31,14 @@ public class OfferRepository(AppDbContext context)
             await context.SaveChangesAsync();
         }
     }
-    
-    
+
+    public async Task IncrementProposalsCountAsync(Guid offerUid)
+    {
+        var offer = await Context.Set<Offer>().FirstOrDefaultAsync(o => o.Uid == offerUid);
+        if (offer != null)
+        {
+            offer.IncrementProposalsCount();
+            await Context.SaveChangesAsync();
+        }
+    }
 }

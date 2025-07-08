@@ -3,7 +3,6 @@ using TuChambaPe.Proposals.Domain.Model.ValueObjects;
 namespace TuChambaPe.Proposals.Interfaces.REST.Resources;
 
 public record ProposalResource(
-    int Id,
     Guid Uid,
     Guid OfferUid,
     Guid WorkerUid,

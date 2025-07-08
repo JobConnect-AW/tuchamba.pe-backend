@@ -24,5 +24,7 @@ public static class ModelBuilderExtensions
         builder.Entity<Offer>().Property(o => o.WorkSchedule).IsRequired();
         builder.Entity<Offer>().Property(o => o.UserUid).IsRequired();
         builder.Entity<Offer>().Property(o => o.SelectedProposalUid);
+        builder.Entity<Offer>().Property(o => o.ProposalsCount).IsRequired();
+        builder.Entity<Offer>().Property(o => o.StartAt);
     }
 }

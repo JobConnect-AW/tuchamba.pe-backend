@@ -18,7 +18,10 @@ public static class OfferResourceFromEntityAssembler
             offer.Status,
             offer.MinimumExperience,
             offer.WorkSchedule,
-            offer.UserUid
+            offer.UserUid,
+            offer.ProposalsCount,
+            offer.SelectedProposalUid,
+            offer.StartAt
         );
     }
 }

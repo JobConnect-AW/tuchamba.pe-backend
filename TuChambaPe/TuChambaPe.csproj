@@ -41,6 +41,7 @@
     <Folder Include="Payments\Domain\Services\" />
     <Folder Include="Proposals\Domain\Repositories\" />
     <Folder Include="Proposals\Domain\Services\" />
+    <Folder Include="Users\Domain\Model\ValueObjects\" />
     <Folder Include="Users\Domain\Repositories\" />
     <Folder Include="Users\Domain\Services\" />
   </ItemGroup>

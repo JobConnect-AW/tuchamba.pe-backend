@@ -3,6 +3,7 @@ using TuChambaPe.Offers.Domain.Model.ValueObjects;
 namespace TuChambaPe.Offers.Interfaces.REST.Resources;
 
 public record CreateOfferResource(
+    Guid Uid,
     string Title,
     string Description,
     string Category,
@@ -12,5 +13,8 @@ public record CreateOfferResource(
     string Status,
     string MinimumExperience,
     string WorkSchedule,
-    Guid UserUid
+    Guid UserUid,
+    int ProposalsCount,
+    Guid? SelectedProposalUid,
+    DateTimeOffset? StartAt
 );

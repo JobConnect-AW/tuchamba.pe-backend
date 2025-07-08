@@ -13,5 +13,8 @@ public record OfferResource(
     string Status,
     string MinimumExperience,
     string WorkSchedule,
-    Guid UserUid
+    Guid UserUid,
+    int ProposalsCount,
+    Guid? SelectedProposalUid,
+    DateTimeOffset? StartAt
 );
