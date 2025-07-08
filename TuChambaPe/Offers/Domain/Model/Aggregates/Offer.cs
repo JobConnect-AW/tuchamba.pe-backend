@@ -4,7 +4,7 @@ using TuChambaPe.Offers.Domain.Model.ValueObjects;
 namespace TuChambaPe.Offers.Domain.Model.Aggregates;
 public partial class Offer
 {
-    public Offer(Guid uid, string title, string description, int categoryId, float amount, string duration, string paymentMethod, string status)
+    public Offer(Guid uid, string title, string description, int categoryId, float amount, string duration, string paymentMethod, string status, Guid? selectedProposalUid = null, DateTimeOffset? startAt = null, int proposalsCount = 0)
     {
         Uid = uid;
         Title = title;
@@ -14,6 +14,9 @@ public partial class Offer
         Duration = duration;
         PaymentMethod = paymentMethod;
         Status = OfferStatus.Validate(status);
+        SelectedProposalUid = selectedProposalUid;
+        StartAt = startAt;
+        ProposalsCount = proposalsCount;
     }
 
     public Offer(CreateOfferCommand command) : this(
@@ -24,7 +27,10 @@ public partial class Offer
         command.Amount,
         command.Duration,
         command.PaymentMethod,
-        command.Status)
+        command.Status,
+        command.SelectedProposalUid,
+        command.StartAt,
+        command.ProposalsCount)
     {
     }
 
@@ -37,4 +43,7 @@ public partial class Offer
     public string Duration { get; private set; }
     public string PaymentMethod { get; private set; }
     public string Status { get; private set; }
+    public Guid? SelectedProposalUid { get; private set; }
+    public DateTimeOffset? StartAt { get; private set; }
+    public int ProposalsCount { get; private set; }
 }

@@ -15,6 +15,9 @@ public static class CreateOfferCommandFromResourceAssembler
             resource.Amount,
             resource.Duration,
             resource.PaymentMethod,
-            resource.Status);
+            resource.Status,
+            resource.SelectedProposalUid,
+            resource.StartAt,
+            resource.ProposalsCount);
     }
 } 

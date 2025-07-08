@@ -10,5 +10,8 @@ public record CreateOfferCommand(
     float Amount,
     string Duration,
     string PaymentMethod,
-    string Status
+    string Status,
+    Guid? SelectedProposalUid,
+    DateTimeOffset? StartAt,
+    int ProposalsCount
 );

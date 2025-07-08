@@ -16,6 +16,9 @@ public static class OfferResourceFromEntityAssembler
             offer.Amount,
             offer.Duration,
             offer.PaymentMethod,
-            offer.Status);
+            offer.Status,
+            offer.ProposalsCount,
+            offer.SelectedProposalUid,
+            offer.StartAt);
     }
 } 

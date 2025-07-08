@@ -20,5 +20,8 @@ public static class ModelBuilderExtensions
         builder.Entity<Offer>().Property(o => o.Duration).IsRequired();
         builder.Entity<Offer>().Property(o => o.PaymentMethod).IsRequired();
         builder.Entity<Offer>().Property(o => o.Status).IsRequired();
+        builder.Entity<Offer>().Property(o => o.SelectedProposalUid);
+        builder.Entity<Offer>().Property(o => o.StartAt);
+        builder.Entity<Offer>().Property(o => o.ProposalsCount).IsRequired();
     }
 }
