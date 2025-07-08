@@ -3,6 +3,7 @@ using TuChambaPe.Offers.Domain.Model.ValueObjects;
 namespace TuChambaPe.Offers.Interfaces.REST.Resources;
 
 public record CreateOfferResource(
+    Guid Uid,
     string Title,
     string Description,
     int CategoryId,

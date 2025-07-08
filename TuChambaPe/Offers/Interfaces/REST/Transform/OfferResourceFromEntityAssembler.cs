@@ -8,7 +8,6 @@ public static class OfferResourceFromEntityAssembler
     public static OfferResource ToResourceFromEntity(Offer offer)
     {
         return new OfferResource(
-            offer.Id,
             offer.Uid,
             offer.Title,
             offer.Description,

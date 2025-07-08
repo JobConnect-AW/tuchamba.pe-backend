@@ -8,7 +8,7 @@ public static class CreateOfferCommandFromResourceAssembler
     public static CreateOfferCommand ToCommandFromResource(CreateOfferResource resource)
     {
         return new CreateOfferCommand(
-            Guid.NewGuid(),
+            resource.Uid,
             resource.Title,
             resource.Description,
             resource.CategoryId,
