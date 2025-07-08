@@ -7,4 +7,5 @@ public interface IOfferQueryService
 {
     Task<Offer?> Handle(GetOfferById query);
     Task<IEnumerable<Offer>> Handle(GetAllOffersQuery query);
-} 
+    Task<IEnumerable<Offer>> Handle(GetOffersByUserUidQuery query);
+}

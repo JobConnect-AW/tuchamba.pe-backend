@@ -5,6 +5,7 @@ namespace TuChambaPe.Offers.Domain.Repositories;
 
 public interface IOfferRepository : IBaseRepository<Offer>
 {
-    Task IncrementProposalsCountAsync(Guid offerUid);
+    Task<Offer?> FindByUidAsync(Guid uid);
+    Task<IEnumerable<Offer>> FindByUserUidAsync(Guid userUid);
     Task SetInProcessAsync(Guid offerUid, Guid selectedProposalUid);
 }

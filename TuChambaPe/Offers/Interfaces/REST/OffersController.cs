@@ -135,4 +135,25 @@ public class OffersController(
         await offerCommandService.Handle(deleteOfferCommand);
         return NoContent();
     }
+
+    /**
+     * <summary>
+     *     Get offers by user uid endpoint. It allows getting all offers for a specific user
+     * </summary>
+     * <param name="userUid">The user uid</param>
+     * <returns>The offer resources</returns>
+     */
+    [HttpGet("user/{userUid}")]
+    [SwaggerOperation(
+        Summary = "Get offers by user uid",
+        Description = "Get all offers for a specific user",
+        OperationId = "GetOffersByUserUid")]
+    [SwaggerResponse(StatusCodes.Status200OK, "The offers were found", typeof(IEnumerable<OfferResource>))]
+    public async Task<IActionResult> GetOffersByUserUid(Guid userUid)
+    {
+        var getOffersByUserUidQuery = new GetOffersByUserUidQuery(userUid);
+        var offers = await offerQueryService.Handle(getOffersByUserUidQuery);
+        var offerResources = offers.Select(OfferResourceFromEntityAssembler.ToResourceFromEntity);
+        return Ok(offerResources);
+    }
 }

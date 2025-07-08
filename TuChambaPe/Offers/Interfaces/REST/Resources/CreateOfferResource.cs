@@ -5,12 +5,12 @@ namespace TuChambaPe.Offers.Interfaces.REST.Resources;
 public record CreateOfferResource(
     string Title,
     string Description,
-    int CategoryId,
+    string Category,
     float Amount,
     string Duration,
     string PaymentMethod,
     string Status,
-    Guid? SelectedProposalUid = null,
-    DateTimeOffset? StartAt = null,
-    int ProposalsCount = 0
-); 
+    string MinimumExperience,
+    string WorkSchedule,
+    Guid UserUid
+);

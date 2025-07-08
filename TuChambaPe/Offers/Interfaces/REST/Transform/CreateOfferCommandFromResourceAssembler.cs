@@ -11,13 +11,13 @@ public static class CreateOfferCommandFromResourceAssembler
             Guid.NewGuid(),
             resource.Title,
             resource.Description,
-            resource.CategoryId,
+            resource.Category,
             resource.Amount,
             resource.Duration,
             resource.PaymentMethod,
             resource.Status,
-            resource.SelectedProposalUid,
-            resource.StartAt,
-            resource.ProposalsCount);
+            resource.MinimumExperience,
+            resource.WorkSchedule,
+            resource.UserUid);
     }
-} 
+}

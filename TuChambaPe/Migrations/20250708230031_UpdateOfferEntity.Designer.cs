@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 
@@ -11,9 +12,11 @@ using TuChambaPe.Shared.Infrastructure.Persistence.EFC.Configuration;
 namespace TuChambaPe.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250708230031_UpdateOfferEntity")]
+    partial class UpdateOfferEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,10 +77,10 @@ namespace TuChambaPe.Migrations
                         .HasColumnType("float")
                         .HasColumnName("amount");
 
-                    b.Property<string>("Category")
+                    b.Property<string>("CategoryId")
                         .IsRequired()
                         .HasColumnType("longtext")
-                        .HasColumnName("category");
+                        .HasColumnName("category_id");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -99,9 +102,17 @@ namespace TuChambaPe.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("payment_method");
 
+                    b.Property<int>("ProposalsCount")
+                        .HasColumnType("int")
+                        .HasColumnName("proposals_count");
+
                     b.Property<Guid?>("SelectedProposalUid")
                         .HasColumnType("char(36)")
                         .HasColumnName("selected_proposal_uid");
+
+                    b.Property<DateTimeOffset?>("StartAt")
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("start_at");
 
                     b.Property<string>("Status")
                         .IsRequired()

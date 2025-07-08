@@ -20,4 +20,4 @@ public class ProposalAcceptedEventHandler : INotificationHandler<ProposalAccepte
     {
         await _offerRepository.SetInProcessAsync(notification.OfferUid, notification.ProposalUid);
     }
-} 
+}

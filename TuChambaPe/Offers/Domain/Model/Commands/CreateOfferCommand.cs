@@ -6,12 +6,12 @@ public record CreateOfferCommand(
     Guid Uid,
     string Title,
     string Description,
-    int CategoryId,
+    string Category,
     float Amount,
     string Duration,
     string PaymentMethod,
     string Status,
-    Guid? SelectedProposalUid,
-    DateTimeOffset? StartAt,
-    int ProposalsCount
+    string MinimumExperience,
+    string WorkSchedule,
+    Guid UserUid
 );

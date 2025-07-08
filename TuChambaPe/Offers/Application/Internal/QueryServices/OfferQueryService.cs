@@ -38,4 +38,16 @@ public class OfferQueryService(IOfferRepository offerRepository) : IOfferQuerySe
     {
         return await offerRepository.ListAsync();
     }
-} 
+
+    /**
+     * <summary>
+     *     Handle get offers by user uid query
+     * </summary>
+     * <param name="query">The query object containing the user uid to search</param>
+     * <returns>The offers for the specified user</returns>
+     */
+    public async Task<IEnumerable<Offer>> Handle(GetOffersByUserUidQuery query)
+    {
+        return await offerRepository.FindByUserUidAsync(query.UserUid);
+    }
+}

@@ -11,10 +11,10 @@ public static class UpdateOfferCommandFromResourceAssembler
             uid,
             resource.Title,
             resource.Description,
-            resource.CategoryId,
+            resource.Category,
             resource.Amount,
             resource.Duration,
             resource.PaymentMethod,
             resource.Status);
     }
-} 
+}

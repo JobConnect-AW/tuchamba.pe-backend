@@ -6,7 +6,7 @@ public record UpdateOfferCommand(
     Guid Id,
     string Title,
     string Description,
-    int CategoryId,
+    string Category,
     float Amount,
     string Duration,
     string PaymentMethod,
