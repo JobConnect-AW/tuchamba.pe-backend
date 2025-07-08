@@ -5,6 +5,15 @@ using TuChambaPe.Reviews.Domain.Services;
 
 namespace TuChambaPe.Reviews.Application.Internal.QueryServices;
 
+/**
+ * <summary>
+ *     The review query service
+ * </summary>
+ * <remarks>
+ *     This service is used to handle review queries
+ * </remarks>
+ */
+
 public class ReviewQueryService(IReviewRepository reviewRepository) : IReviewQueryService
 {
     public async Task<Review?> Handle(GetReviewByUidQuery query)

@@ -8,6 +8,11 @@ using TuChambaPe.Reviews.Interfaces.REST.Transform;
 
 namespace TuChambaPe.Reviews.Interfaces.REST;
 
+/// <summary>
+/// Controller responsible for handling review-related operations such as creating, retrieving,
+/// and filtering reviews within the application.
+/// </summary>
+/// 
 [ApiController]
 [Route("api/v1/[controller]")]
 [Produces(MediaTypeNames.Application.Json)]

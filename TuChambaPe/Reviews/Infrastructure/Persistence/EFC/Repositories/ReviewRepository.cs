@@ -6,6 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TuChambaPe.Reviews.Infrastructure.Persistence.EFC.Repositories;
 
+/// <summary>
+/// Provides methods for managing Review entities in the database. Inherits from BaseRepository and implements IReviewRepository.
+/// </summary>
 public class ReviewRepository(AppDbContext context) : BaseRepository<Review>(context), IReviewRepository
 {
     public async Task<IEnumerable<Review>> GetByReceiverUserIdAsync(Guid receiverUserId)

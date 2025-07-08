@@ -3,6 +3,9 @@ using TuChambaPe.Reviews.Domain.Model.Aggregates;
 
 namespace TuChambaPe.Reviews.Infrastructure.Persistence.EFC.Configuration.Extensions;
 
+/// <summary>
+/// Provides extension methods for configuring entity mappings within the Entity Framework Core ModelBuilder.
+/// </summary>
 public static class ModelBuilderExtensions
 {
     public static void ApplyReviewsConfiguration(this ModelBuilder builder)
