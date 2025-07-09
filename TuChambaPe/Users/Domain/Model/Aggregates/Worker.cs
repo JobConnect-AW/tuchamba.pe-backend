@@ -2,14 +2,15 @@ using System.Text.Json.Serialization;
 
 namespace TuChambaPe.Users.Domain.Model.Aggregates
 {
-    public class Worker(Guid uid, string firstName, string lastName, string phone, string profileType, string location, string bio, List<string> skills, int experience, List<string> certifications, bool isVerified = false, string? avatar = null)
+    public class Worker(Guid uid, Guid userUid, string firstName, string lastName, string phone, string profileType, string location, string bio, List<string> skills, int experience, List<string> certifications, bool isVerified = false, string? avatar = null)
     {
-        public Worker() : this(Guid.NewGuid(), string.Empty, string.Empty, string.Empty, "INDIVIDUAL", string.Empty, string.Empty, new List<string>(), 0, new List<string>())
+        public Worker() : this(Guid.NewGuid(), Guid.NewGuid(), string.Empty, string.Empty, string.Empty, "INDIVIDUAL", string.Empty, string.Empty, new List<string>(), 0, new List<string>())
         {
         }
 
         public int Id { get; }
         public Guid Uid { get; } = uid;
+        public Guid UserUid { get; } = userUid;
         public string FirstName { get; private set; } = firstName;
         public string LastName { get; private set; } = lastName;
         public string Phone { get; private set; } = phone;

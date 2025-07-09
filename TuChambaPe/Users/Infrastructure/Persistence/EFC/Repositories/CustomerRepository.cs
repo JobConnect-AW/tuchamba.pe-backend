@@ -23,4 +23,9 @@ public class CustomerRepository(AppDbContext context) : BaseRepository<Customer>
             .Where(customer => customer.Location.Contains(location))
             .ToListAsync();
     }
+
+    public async Task<Customer?> FindByUserUidAsync(Guid userUid)
+    {
+        return await Context.Set<Customer>().FirstOrDefaultAsync(c => c.UserUid == userUid);
+    }
 }

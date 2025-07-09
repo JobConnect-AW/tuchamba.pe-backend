@@ -15,6 +15,6 @@ public static class CreateWorkerCommandFromResourceAssembler
 {
     public static CreateWorkerCommand ToCommandFromResource(CreateWorkerResource resource)
     {
-        return new CreateWorkerCommand(resource.Uid, resource.FirstName, resource.LastName, resource.Phone, resource.ProfileType, resource.Location, resource.Bio, resource.Skills, resource.Experience, resource.Certifications, resource.Avatar);
+        return new CreateWorkerCommand(resource.Uid, resource.UserUid, resource.FirstName, resource.LastName, resource.Phone, resource.ProfileType, resource.Location, resource.Bio, resource.Skills, resource.Experience, resource.Certifications, resource.Avatar);
     }
 }

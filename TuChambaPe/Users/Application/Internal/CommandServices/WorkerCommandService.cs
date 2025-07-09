@@ -14,7 +14,7 @@ namespace TuChambaPe.Users.Application.Internal.CommandServices;
  *     This service is used to handle worker commands
  * </remarks>
  */
-public class WorkerCommandService(IWorkerRepository workerRepository, IUnitOfWork unitOfWork) : IWorkerCommandService
+public class WorkerCommandService(IWorkerRepository workerRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : IWorkerCommandService
 {
     /**
      * <summary>
@@ -25,11 +25,18 @@ public class WorkerCommandService(IWorkerRepository workerRepository, IUnitOfWor
      */
     public async Task<Worker> Handle(CreateWorkerCommand command)
     {
-        var worker = new Worker(command.Uid, command.FirstName, command.LastName, 
+        var worker = new Worker(command.Uid, command.UserUid, command.FirstName, command.LastName, 
             command.Phone, command.ProfileType, command.Location, command.Bio, command.Skills, 
             command.Experience, command.Certifications, false, command.Avatar);
         
         await workerRepository.AddAsync(worker);
+        // Buscar y actualizar el User
+        var user = await userRepository.FindByUidAsync(command.UserUid);
+        if (user != null)
+        {
+            user.UpdateWorkerId(worker.Id);
+            await userRepository.UpdateAsync(user);
+        }
         await unitOfWork.CompleteAsync();
         return worker;
     }

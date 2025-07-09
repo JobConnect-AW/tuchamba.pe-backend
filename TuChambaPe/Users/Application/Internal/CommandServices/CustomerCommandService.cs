@@ -14,7 +14,7 @@ namespace TuChambaPe.Users.Application.Internal.CommandServices;
  *     This service is used to handle customer commands
  * </remarks>
  */
-public class CustomerCommandService(ICustomerRepository customerRepository, IUnitOfWork unitOfWork) : ICustomerCommandService
+public class CustomerCommandService(ICustomerRepository customerRepository, IUserRepository userRepository, IUnitOfWork unitOfWork) : ICustomerCommandService
 {
     /**
      * <summary>
@@ -25,10 +25,17 @@ public class CustomerCommandService(ICustomerRepository customerRepository, IUni
      */
     public async Task<Customer> Handle(CreateCustomerCommand command)
     {
-        var customer = new Customer(command.Uid, command.FirstName, command.LastName, 
+        var customer = new Customer(command.Uid, command.UserUid, command.FirstName, command.LastName, 
             command.Phone, command.ProfileType, command.Location, command.Bio);
         
         await customerRepository.AddAsync(customer);
+        // Buscar y actualizar el User
+        var user = await userRepository.FindByUidAsync(command.UserUid);
+        if (user != null)
+        {
+            user.UpdateCustomerId(customer.Id);
+            await userRepository.UpdateAsync(user);
+        }
         await unitOfWork.CompleteAsync();
         return customer;
     }

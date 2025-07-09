@@ -26,4 +26,9 @@ public class UserRepository(AppDbContext context) : BaseRepository<User>(context
     {
         return Context.Set<User>().Any(user => user.AccountId.Equals(accountId));
     }
+
+    public async Task<User?> FindByUidAsync(Guid uid)
+    {
+        return await Context.Set<User>().FirstOrDefaultAsync(u => u.Uid == uid);
+    }
 }

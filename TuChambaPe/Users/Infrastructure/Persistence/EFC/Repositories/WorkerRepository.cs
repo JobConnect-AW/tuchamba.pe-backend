@@ -44,4 +44,9 @@ public class WorkerRepository(AppDbContext context) : BaseRepository<Worker>(con
             .Where(worker => worker.Rating >= minRating && worker.Rating <= maxRating)
             .ToListAsync();
     }
+
+    public async Task<Worker?> FindByUserUidAsync(Guid userUid)
+    {
+        return await Context.Set<Worker>().FirstOrDefaultAsync(w => w.UserUid == userUid);
+    }
 }

@@ -17,4 +17,6 @@ public interface IUserRepository : IBaseRepository<User>
     Task<User?> FindByAccountIdAsync(Guid accountId);
 
     bool ExistsByAccountId(Guid accountId);
+
+    Task<User?> FindByUidAsync(Guid uid);
 }
